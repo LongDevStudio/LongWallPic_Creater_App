@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { GenericResponse } from '@/models/response/GenericResponse';
+import { LoginResponse } from '@/models/response/LoginResponse';
 
 export default function LoginPage() {
   const [login, setLogin] = useState('');
@@ -21,9 +23,18 @@ export default function LoginPage() {
       });
 
       if (response.ok) {
-        router.push('/'); // Redirect to dashboard on successful login
+        const data: GenericResponse<LoginResponse> = await response.json();
+        if (data.success && data.data) {
+          localStorage.setItem('token', data.data.token);
+          localStorage.setItem('username', data.data.user.username);
+          localStorage.setItem('user', JSON.stringify(data.data));
+          console.log("user data: ", JSON.stringify(data.data))
+          router.push('/'); // Redirect to dashboard on successful login
+        } else {
+          setError(data.message || 'Login failed');
+        }
       } else {
-        const data = await response.json();
+        const data: GenericResponse<null> = await response.json();
         setError(data.message || 'Login failed');
       }
     } catch (err) {

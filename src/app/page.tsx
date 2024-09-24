@@ -1,16 +1,36 @@
 "use client"; // Mark this file as a client component
 
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from "next/image";
-import { useRouter } from 'next/navigation'; // Import useRouter
 
 export default function Home() {
-  const router = useRouter(); // Initialize useRouter
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const storedUsername = localStorage.getItem('username');
+    if (token && storedUsername) {
+      setIsLoggedIn(true);
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    setIsLoggedIn(false);
+    router.push('/login');
+  };
 
   const handleLoginClick = () => {
-    router.push('/login'); // Navigate to the login page
+    router.push('/login');
   };
+
   const handleUploadClick = () => {
-    router.push('/upload'); // Navigate to the upload page
+    router.push('/upload');
   };
 
   return (
@@ -25,20 +45,32 @@ export default function Home() {
           priority
         />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <button
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            onClick={handleLoginClick} // Add onClick event
-          >
-            Go to Login
-          </button>
-          <button
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            onClick={handleUploadClick} // Add onClick event
-          >
-            Go to Upload
-          </button>
-        </div>
+        {isLoggedIn ? (
+          <div className="flex gap-4 items-center flex-col sm:flex-row">
+            <p>Welcome, {username}!</p>
+            <button
+              className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+            <button
+              className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+              onClick={handleUploadClick}
+            >
+              Go to Upload
+            </button>
+          </div>
+        ) : (
+          <div className="flex gap-4 items-center flex-col sm:flex-row">
+            <button
+              className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+              onClick={handleLoginClick}
+            >
+              Go to Login
+            </button>
+          </div>
+        )}
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
       </footer>
