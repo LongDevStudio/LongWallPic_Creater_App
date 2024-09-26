@@ -9,40 +9,62 @@ import Link from 'next/link';
 export default function WorksPage() {
     const [works, setWorks] = useState<MediaListResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [isRefreshing, setIsRefreshing] = useState(false);
     const router = useRouter();
 
-    useEffect(() => {
-        const fetchWorks = async () => {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                setError('No auth token found. Please log in.');
-                return;
+    const fetchWorks = async (forceRefresh = false) => {
+        setIsRefreshing(true);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setError('No auth token found. Please log in.');
+            setIsRefreshing(false);
+            return;
+        }
+
+        try {
+            // Check for cached data if not forcing refresh
+            if (!forceRefresh) {
+                const cachedWorks = localStorage.getItem('works');
+                if (cachedWorks) {
+                    setWorks({
+                        media: JSON.parse(cachedWorks),
+                        pagination: {
+                            currentPage: 1,
+                            totalPages: 1,
+                            totalItems: 0,
+                            itemsPerPage: 10
+                        }
+                    });
+                    setIsRefreshing(false);
+                    return;
+                }
             }
 
-            try {
-                const response = await fetch('https://wp-api.gluttongk.com/api/users/listWorks?limit=100&page=1', {
-                    headers: {
-                        'Authorization': `${token}`
-                    }
-                });
+            const response = await fetch('https://wp-api.gluttongk.com/api/users/listWorks?limit=100&page=1', {
+                headers: {
+                    'Authorization': `${token}`
+                }
+            });
 
-                if (response.ok) {
-                    const data: GenericResponse<MediaListResponse> = await response.json();
-                    if (data.success && data.data) {
-                        setWorks(data.data);
-                        localStorage.setItem('works', JSON.stringify(data.data.media));
-                    } else {
-                        setError(data.message || 'Failed to fetch works');
-                    }
+            if (response.ok) {
+                const data: GenericResponse<MediaListResponse> = await response.json();
+                if (data.success && data.data) {
+                    setWorks(data.data);
+                    localStorage.setItem('works', JSON.stringify(data.data.media));
                 } else {
-                    const data: GenericResponse<null> = await response.json();
                     setError(data.message || 'Failed to fetch works');
                 }
-            } catch (err) {
-                setError('An error occurred. Please try again.');
+            } else {
+                const data: GenericResponse<null> = await response.json();
+                setError(data.message || 'Failed to fetch works');
             }
-        };
+        } catch (err) {
+            setError('An error occurred. Please try again.');
+        }
+        setIsRefreshing(false);
+    };
 
+    useEffect(() => {
         fetchWorks();
     }, []);
 
@@ -56,7 +78,16 @@ export default function WorksPage() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold mb-8">Your Works</h1>
+            <div className="flex justify-between items-center mb-8">
+                <h1 className="text-3xl font-bold">Your Works</h1>
+                <button 
+                    onClick={() => fetchWorks(true)} 
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                    disabled={isRefreshing}
+                >
+                    {isRefreshing ? 'Refreshing...' : 'Refresh'}
+                </button>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {works.media.map((work) => (
                     <div key={work.id} className="bg-white rounded-lg shadow-md overflow-hidden">
