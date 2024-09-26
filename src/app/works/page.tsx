@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import {useRouter} from 'next/navigation';
 import {MediaListResponse} from '@/models/response/MediaListResponse';
 import {GenericResponse} from '@/models/response/GenericResponse';
+import Link from 'next/link';
 
 export default function WorksPage() {
     const [works, setWorks] = useState<MediaListResponse | null>(null);
@@ -29,6 +30,7 @@ export default function WorksPage() {
                     const data: GenericResponse<MediaListResponse> = await response.json();
                     if (data.success && data.data) {
                         setWorks(data.data);
+                        localStorage.setItem('works', JSON.stringify(data.data.media));
                     } else {
                         setError(data.message || 'Failed to fetch works');
                     }
@@ -74,7 +76,7 @@ export default function WorksPage() {
                         <div className="p-4">
                             <h2 className="text-xl text-black font-semibold mb-2">{work.title || 'Untitled'}</h2>
                             <p className="text-gray-600 mb-4">{work.describe || 'No description'}</p>
-                            <div className="flex justify-between items-center text-sm text-gray-500">
+                            <div className="flex justify-between items-center text-sm text-gray-500 mt-4">
                                 <span>{new Date(work.upload_date).toLocaleDateString('en-US', {
                                     year: 'numeric',
                                     month: '2-digit',
@@ -82,6 +84,11 @@ export default function WorksPage() {
                                 }).replace(/\//g, '/')}</span>
                                 <span className="text-blue-600">Category</span>
                             </div>
+                            <Link href={`/works/edit/${work.id}`}>
+                                <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                                    Edit
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 ))}
