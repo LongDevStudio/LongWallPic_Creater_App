@@ -27,7 +27,7 @@ export default function LoginPage() {
         if (data.success && data.data) {
           localStorage.setItem('token', data.data.token);
           localStorage.setItem('username', data.data.user.username);
-          localStorage.setItem('user', JSON.stringify(data.data));
+          localStorage.setItem('user', JSON.stringify(data.data.user));
           console.log("user data: ", JSON.stringify(data.data))
           router.push('/'); // Redirect to dashboard on successful login
         } else {

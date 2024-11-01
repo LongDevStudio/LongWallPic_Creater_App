@@ -54,11 +54,11 @@ export default function EditWorkPage({ params }: { params: { id: string } }) {
                     alert('Work updated successfully');
                     router.push('/works');
                 } else {
-                    setError(data.message || 'Failed to update work');
+                    setError(data.message || 'Failed to update work.ts');
                 }
             } else {
                 const data = await response.json();
-                setError(data.message || 'Failed to update work');
+                setError(data.message || 'Failed to update work.ts');
             }
         } catch (err) {
             setError('An error occurred. Please try again.');

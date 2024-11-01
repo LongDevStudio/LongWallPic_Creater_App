@@ -5,6 +5,9 @@ import { useState } from 'react';
 export default function UploadPage() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
+    const [title, setTitle] = useState<string>('');
+    const [content, setContent] = useState<string>('');
+    const [describe, setDescribe] = useState<string>('');
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -24,11 +27,22 @@ export default function UploadPage() {
 
         const formData = new FormData();
         formData.append('file', selectedFile);
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('describe', describe);
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            return;
+        }
 
         try {
-            const response = await fetch('/api/upload', {
+            const response = await fetch('https://wp-api.gluttongk.com/api/creator/uploadWork', {
                 method: 'POST',
                 body: formData,
+                headers: {
+                    'Authorization': `${token}`
+                }
             });
 
             if (response.ok) {
@@ -59,6 +73,28 @@ export default function UploadPage() {
                                 <img src={preview} alt="Preview" className="w-full h-auto" />
                             </div>
                         )}
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            required
+                        />
+                        <textarea
+                            placeholder="Content"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            required
+                        />
+                        <textarea
+                            placeholder="Describe"
+                            value={describe}
+                            onChange={(e) => setDescribe(e.target.value)}
+                            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            required
+                        />
                         <div className="flex items-baseline justify-between">
                             <button className="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
                                 Upload

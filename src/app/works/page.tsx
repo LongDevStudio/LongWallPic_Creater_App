@@ -64,6 +64,34 @@ export default function WorksPage() {
         setIsRefreshing(false);
     };
 
+    const handleDelete = async (workId: string) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('No auth token found. Please log in.');
+            return;
+        }
+
+        try {
+            const response = await fetch(`https://wp-api.gluttongk.com/api/creator/updateWork/`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ is_delete: true, workId: workId })
+            });
+
+            if (response.ok) {
+                alert('Work deleted successfully');
+                fetchWorks(true); // Refresh the works list
+            } else {
+                alert('Failed to delete work.ts');
+            }
+        } catch (err) {
+            alert('An error occurred. Please try again.');
+        }
+    };
+
     useEffect(() => {
         fetchWorks();
     }, []);
@@ -80,8 +108,8 @@ export default function WorksPage() {
         <div className="container mx-auto px-4 py-8">
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-3xl font-bold">Your Works</h1>
-                <button 
-                    onClick={() => fetchWorks(true)} 
+                <button
+                    onClick={() => fetchWorks(true)}
                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                     disabled={isRefreshing}
                 >
@@ -90,7 +118,7 @@ export default function WorksPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {works.media.map((work) => (
-                    <div key={work.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div key={work.id} className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full">
                         <div className="h-48 bg-gray-900 flex items-center justify-center">
                             {work.original_url ? (
                                 <img src={work.original_url} alt={work.title || 'Untitled'}
@@ -104,9 +132,13 @@ export default function WorksPage() {
                                  </span>
                             )}
                         </div>
-                        <div className="p-4">
+                        <div className="p-4 flex-grow flex flex-col">
                             <h2 className="text-xl text-black font-semibold mb-2">{work.title || 'Untitled'}</h2>
-                            <p className="text-gray-600 mb-4">{work.describe || 'No description'}</p>
+                            <p className="text-gray-600 mb-4 flex-grow">
+                                {work.describe && work.describe.length > 250
+                                    ? `${work.describe.substring(0, 250)}...`
+                                    : work.describe || 'No description'}
+                            </p>
                             <div className="flex justify-between items-center text-sm text-gray-500 mt-4">
                                 <span>{new Date(work.upload_date).toLocaleDateString('en-US', {
                                     year: 'numeric',
@@ -115,11 +147,20 @@ export default function WorksPage() {
                                 }).replace(/\//g, '/')}</span>
                                 <span className="text-blue-600">Category</span>
                             </div>
+                        </div>
+                        <div className="p-4">
                             <Link href={`/works/edit/${work.id}`}>
-                                <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                                <button
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
                                     Edit
                                 </button>
                             </Link>
+                            <button
+                                onClick={() => handleDelete(work.id)}
+                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full"
+                            >
+                                Delete
+                            </button>
                         </div>
                     </div>
                 ))}

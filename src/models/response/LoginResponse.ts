@@ -4,6 +4,7 @@ interface User {
     username: string;
     email: string;
     avatar: string | null;
+    is_creator: boolean;
 }
 
 interface LoginResponse {
