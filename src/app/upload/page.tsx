@@ -11,6 +11,7 @@ export default function UploadPage() {
     const [content, setContent] = useState<string>('');
     const [describe, setDescribe] = useState<string>('');
     const [blob, setBlob] = useState<PutBlobResult | null>(null);
+    const [isUploading, setIsUploading] = useState<boolean>(false);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -28,15 +29,16 @@ export default function UploadPage() {
         e.preventDefault();
         if (!selectedFile) return;
 
+        setIsUploading(true);
+
         const formData = new FormData();
         formData.append('file', selectedFile);
         formData.append('title', title);
-        // formData.append('content', content);
-        // formData.append('describe', describe);
 
         const token = localStorage.getItem('token');
         if (!token) {
             alert('Please login first');
+            setIsUploading(false);
             return;
         }
 
@@ -73,10 +75,11 @@ export default function UploadPage() {
                 } else {
                     alert('File uploadWork failed');
                 }
-                return;
             }
         } catch (err) {
             alert('An error occurred. Please try again.');
+        } finally {
+            setIsUploading(false);
         }
     };
 
@@ -106,23 +109,13 @@ export default function UploadPage() {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                             required
                         />
-                        {/*<textarea*/}
-                        {/*    placeholder="Content"*/}
-                        {/*    value={content}*/}
-                        {/*    onChange={(e) => setContent(e.target.value)}*/}
-                        {/*    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"*/}
-                        {/*    required*/}
-                        {/*/>*/}
-                        {/*<textarea*/}
-                        {/*    placeholder="Describe"*/}
-                        {/*    value={describe}*/}
-                        {/*    onChange={(e) => setDescribe(e.target.value)}*/}
-                        {/*    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"*/}
-                        {/*    required*/}
-                        {/*/>*/}
                         <div className="flex items-baseline justify-between">
-                            <button className="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
-                                Upload
+                            <button
+                                type="submit"
+                                className={`px-6 py-2 mt-4 text-white rounded-lg ${isUploading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-900'}`}
+                                disabled={isUploading}
+                            >
+                                {isUploading ? 'Uploading...' : 'Upload'}
                             </button>
                         </div>
                     </div>
