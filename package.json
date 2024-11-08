@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@sanity/client": "^6.22.3",
     "@vercel/blob": "^0.25.1",
+    "@vercel/postgres": "^0.10.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.2.13",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "uuid": "^11.0.2"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

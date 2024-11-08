@@ -34,7 +34,7 @@ export default function UploadPage() {
             if (response.ok) {
                 alert('File uploaded successfully');
             } else {
-                alert('File upload failed');
+                alert('File uploadWork failed');
             }
         } catch (err) {
             alert('An error occurred. Please try again.');

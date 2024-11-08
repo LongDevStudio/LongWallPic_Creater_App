@@ -36,36 +36,43 @@ export default function UploadPage() {
 
         const token = localStorage.getItem('token');
         if (!token) {
+            alert('Please login first');
             return;
         }
 
         try {
-            // let fileUrl = '';
             if (selectedFile.size > 4 * 1024 * 1024) {
                 console.log('uploading large file');
                 const newBlob = await upload(selectedFile.name, selectedFile, {
                     access: 'public',
-                    handleUploadUrl: 'https://wp-api.gluttongk.com/api/creator/uploadWork',
-                    clientPayload: JSON.stringify({token: token, do_what: 'gen-code'}),
+                    handleUploadUrl: '/api/uploadWork',
+                    clientPayload: JSON.stringify({
+                        token,
+                        title,
+                    })
                 });
 
                 setBlob(newBlob);
+                alert('File uploaded successfully');
             } else {
                 console.log('uploading small file');
-                // 使用现有的上传方式
-                // const response = await fetch('https://wp-api.gluttongk.com/api/creator/uploadWork', {
-                //     method: 'POST',
-                //     body: formData,
-                //     headers: {
-                //         'Authorization': `${token}`
-                //     }
-                // });
-                //
-                // if (response.ok) {
-                //     alert('File uploaded successfully');
-                // } else {
-                //     alert('File upload failed');
-                // }
+                const formData = new FormData();
+                formData.append('file', selectedFile);
+                formData.append('title', title);
+
+                const response = await fetch('https://wp-api.gluttongk.com/api/creator/uploadWork', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Authorization': `${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    alert('File uploaded successfully');
+                } else {
+                    alert('File uploadWork failed');
+                }
                 return;
             }
         } catch (err) {
@@ -87,8 +94,8 @@ export default function UploadPage() {
                             required
                         />
                         {preview && (
-                            <div className="mt-4">
-                                <img src={preview} alt="Preview" className="w-full h-auto" />
+                            <div className="mt-4 max-h-600 max-w-300">
+                                <img src={preview} alt="Preview" className="w-full h-auto max-h-600 max-w-300"/>
                             </div>
                         )}
                         <input
