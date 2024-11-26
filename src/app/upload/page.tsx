@@ -46,8 +46,8 @@ export default function UploadPage() {
         }
 
         try {
-            if (selectedFile.size > 4 * 1024 * 1024) {
-                console.log('uploading large file');
+
+            console.log('uploading large file');
                 const newBlob = await upload(selectedFile.name, selectedFile, {
                     access: 'public',
                     handleUploadUrl: '/api/uploadWork',
@@ -59,32 +59,45 @@ export default function UploadPage() {
 
                 setBlob(newBlob);
                 alert('File uploaded successfully');
-            } else {
-                console.log('uploading small file');
-                const formData = new FormData();
-                formData.append('file', selectedFile);
-                formData.append('title', title);
+            // if (selectedFile.size > 4 * 1024 * 1024) {
+            //     console.log('uploading large file');
+            //     const newBlob = await upload(selectedFile.name, selectedFile, {
+            //         access: 'public',
+            //         handleUploadUrl: '/api/uploadWork',
+            //         clientPayload: JSON.stringify({
+            //             token,
+            //             title,
+            //         })
+            //     });
 
-                const response = await fetch('https://wp-api.gluttongk.com/api/creator/uploadWork', {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Authorization': `${token}`
-                    }
-                });
+            //     setBlob(newBlob);
+            //     alert('File uploaded successfully');
+            // } else {
+            //     console.log('uploading small file');
+            //     const formData = new FormData();
+            //     formData.append('file', selectedFile);
+            //     formData.append('title', title);
 
-                if (response.ok) {
-                    alert('File uploaded successfully');
-                    console.log('Uploading:', {file: selectedFile, title: title})
-                    // 重置表单
-                    setSelectedFile(null)
-                    setPreviewUrl(null)
-                    setTitle('')
+            //     const response = await fetch('https://wp-api.gluttongk.com/api/creator/uploadWork', {
+            //         method: 'POST',
+            //         body: formData,
+            //         headers: {
+            //             'Authorization': `${token}`
+            //         }
+            //     });
 
-                } else {
-                    alert('File uploadWork failed');
-                }
-            }
+            //     if (response.ok) {
+            //         alert('File uploaded successfully');
+            //         console.log('Uploading:', {file: selectedFile, title: title})
+            //         // 重置表单
+            //         setSelectedFile(null)
+            //         setPreviewUrl(null)
+            //         setTitle('')
+
+            //     } else {
+            //         alert('File uploadWork failed');
+            //     }
+            // }
         } catch (err) {
             alert('An error occurred. Please try again.');
         } finally {

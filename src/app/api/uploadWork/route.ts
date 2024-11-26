@@ -1,3 +1,5 @@
+export const maxDuration = 60; // This function can run for a maximum of 5 seconds
+
 import {handleUpload, type HandleUploadBody} from '@vercel/blob/client';
 import {NextResponse} from 'next/server';
 import jwt from 'jsonwebtoken';
@@ -57,8 +59,10 @@ export async function POST(request: Request): Promise<NextResponse> {
                 }
 
                 const query = `
-                    SELECT * FROM users
-                    WHERE id = $1 AND is_creator = true
+                    SELECT *
+                    FROM users
+                    WHERE id = $1
+                      AND is_creator = true
                 `;
                 const result = await sql.query(query, [decoded.userId]);
                 if (result.rows.length === 0) {
@@ -77,10 +81,11 @@ export async function POST(request: Request): Promise<NextResponse> {
                         'image/jpeg',
                         'image/png',
                         'image/gif',
-                    ], // optional, default to all content types
+                        'image/webp',
+                    ], // optional, default to all content type
                     tokenPayload: JSON.stringify({
-                            userId: decoded.userId,
-                            creatorDocId: creatorDoc?._id,
+                        userId: decoded.userId,
+                        creatorDocId: creatorDoc?._id,
                     })
                 };
             },
@@ -94,26 +99,49 @@ export async function POST(request: Request): Promise<NextResponse> {
                 const response = await fetch(blob.url);
                 const arrayBuffer = await response.arrayBuffer();
                 const buffer = Buffer.from(arrayBuffer);
+                console.log(`buffer size: ${buffer.byteLength}`);
 
                 const fileName = blob.pathname.split('/').pop() || ''
 
-                const asset = await sanityClient.assets.upload('image', buffer, {
-                    filename: 'image.jpg',
-                });
-                const originFile = await sanityClient.assets.upload('file', buffer, {
-                    filename: 'image.jpg',
-                });
-
-                const {userId, creatorDocId} = JSON.parse(tokenPayload!);
-
-
-                // fixme: 存在以下问题，偶尔出现1. 上传了两次
                 try {
+                    console.log('Starting to upload image asset to Sanity...');
+                    console.log('Sanity config:', {
+                        projectId: process.env.SANITY_API_PROJECT_ID,
+                        dataset: process.env.SANITY_DATA_SET
+                    });
+                    
+                    const asset = await sanityClient.assets.upload('image', buffer, {
+                        filename: 'image.jpg',
+                    });
+                    console.log('Image asset uploaded to Sanity successfully:', {
+                        assetId: asset._id,
+                        size: asset.size,
+                        mimeType: asset.mimeType
+                    });
+
+                    console.log('Starting to upload original file to Sanity...');
+                    const originFile = await sanityClient.assets.upload('file', buffer, {
+                        filename: 'image.jpg',
+                    });
+                    console.log('Original file uploaded to Sanity successfully:', {
+                        fileId: originFile._id,
+                        size: originFile.size,
+                        mimeType: originFile.mimeType
+                    });
+
+                    const {userId, creatorDocId} = JSON.parse(tokenPayload!);
+
+
+                    // fixme: 存在以下问题，偶尔出现
+                    // 1. 上传了两次
+                    // 2. 显示上传成功，但是 Sanity 里面没有文件
+
                     // Run any logic after the file uploadWork completed,
                     // If you've already validated the user and authorization prior, you can
                     // safely update your database
 
                     const upload_at = new Date().toISOString();
+                    console.log(`start to create work file for user ${userId} at ${upload_at}`);
 
                     const workFileDoc = {
                         _type: 'work_file',
@@ -128,7 +156,7 @@ export async function POST(request: Request): Promise<NextResponse> {
                                 _ref: asset._id
                             }
                         } : {},
-                        original_file: originFile ?  {
+                        original_file: originFile ? {
                             _type: 'file',
                             asset: {
                                 _type: 'reference',
@@ -144,6 +172,7 @@ export async function POST(request: Request): Promise<NextResponse> {
                     }
 
                     const createdWorkDoc = await sanityClient.create(workFileDoc);
+                    console.log('Work file {} created successfully', createdWorkDoc._id);
 
                     const workData = {
                         _type: 'work',
@@ -166,7 +195,7 @@ export async function POST(request: Request): Promise<NextResponse> {
                                 _ref: asset._id
                             }
                         } : {},
-                        work_file : {
+                        work_file: {
                             _type: 'reference',
                             _ref: createdWorkDoc._id
                         },
@@ -201,7 +230,12 @@ export async function POST(request: Request): Promise<NextResponse> {
                     console.log('Work {} created successfully', createdWork._id);
 
                 } catch (error) {
-                    throw new Error('Could not update post');
+                    console.error('Error during Sanity upload:', {
+                        error: error instanceof Error ? error.message : String(error),
+                        stack: error instanceof Error ? error.stack : undefined,
+                        timestamp: new Date().toISOString()
+                    });
+                    throw error;
                 }
             },
         });
