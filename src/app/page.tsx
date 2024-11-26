@@ -2,14 +2,12 @@ import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { ArrowDown, Smartphone, ImageIcon, Zap, PenTool, DollarSign, Users, Tablet, Monitor, Tv, Glasses } from 'lucide-react'
 import { AppShowcase } from '@/components/AppShowcase'
+import { Header } from '@/components/Header'
 
 export default function Home() {
   return (
       <div className="flex flex-col min-h-screen">
-        <header className="p-4 bg-gradient-to-r from-purple-600 to-blue-600">
-          <h1 className="text-2xl font-bold text-white">WallpaperWizard</h1>
-        </header>
-
+        <Header />
         <main className="flex-grow">
           {/* Hero Section */}
           <section className="relative h-[80vh] bg-gradient-to-b from-purple-600 to-blue-600 flex items-center justify-center px-4 text-center">
@@ -190,4 +188,3 @@ function RoadmapItem({ icon, title, description, timeline }: { icon: React.React
       </div>
   )
 }
-

@@ -4,12 +4,14 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { GenericResponse } from '@/models/response/GenericResponse';
 import { LoginResponse } from '@/models/response/LoginResponse';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function LoginPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+  const { login: authLogin } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,23 +24,16 @@ export default function LoginPage() {
         body: JSON.stringify({ login, password }),
       });
 
-      if (response.ok) {
-        const data: GenericResponse<LoginResponse> = await response.json();
-        if (data.success && data.data) {
-          localStorage.setItem('token', data.data.token);
-          localStorage.setItem('username', data.data.user.username);
-          localStorage.setItem('user', JSON.stringify(data.data.user));
-          console.log("user data: ", JSON.stringify(data.data))
-          router.push('/'); // Redirect to dashboard on successful login
-        } else {
-          setError(data.message || 'Login failed');
-        }
+      const data = (await response.json()) as GenericResponse<LoginResponse>;
+
+      if (response.ok && data.data?.token) {
+        authLogin(data.data.token);
+        router.push('/');
       } else {
-        const data: GenericResponse<null> = await response.json();
         setError(data.message || 'Login failed');
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError('An error occurred during login');
     }
   };
 
