@@ -25,11 +25,17 @@ export default function UploadPage() {
 
             const imageUrl = URL.createObjectURL(file)
             setPreviewUrl(imageUrl)
+
+            // Only set title if it's empty
+            if (!title.trim()) {
+                // Remove file extension from name
+                const fileName = file.name.replace(/\.[^/.]+$/, "");
+                setTitle(fileName);
+            }
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         if (!selectedFile) return;
 
         setIsUploading(true);
@@ -48,17 +54,17 @@ export default function UploadPage() {
         try {
 
             console.log('uploading large file');
-                const newBlob = await upload(selectedFile.name, selectedFile, {
-                    access: 'public',
-                    handleUploadUrl: '/api/uploadWork',
-                    clientPayload: JSON.stringify({
-                        token,
-                        title,
-                    })
-                });
+            const newBlob = await upload(selectedFile.name, selectedFile, {
+                access: 'public',
+                handleUploadUrl: '/api/uploadWork',
+                clientPayload: JSON.stringify({
+                    token,
+                    title,
+                })
+            });
 
-                setBlob(newBlob);
-                alert('File uploaded successfully');
+            setBlob(newBlob);
+            alert('File uploaded successfully');
             // if (selectedFile.size > 4 * 1024 * 1024) {
             //     console.log('uploading large file');
             //     const newBlob = await upload(selectedFile.name, selectedFile, {
@@ -99,7 +105,8 @@ export default function UploadPage() {
             //     }
             // }
         } catch (err) {
-            alert('An error occurred. Please try again.');
+            console.error('Upload error:', err);
+            alert('File upload failed');
         } finally {
             setIsUploading(false);
         }
@@ -119,29 +126,11 @@ export default function UploadPage() {
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-            <Card className="w-full max-w-md mx-auto">
+            <Card>
                 <CardHeader>
                     <CardTitle>上传图片</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="image-upload">选择图片</Label>
-                        <Input
-                            id="image-upload"
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                        />
-                    </div>
-                    {previewUrl && (
-                        <div className="mt-4">
-                            <img
-                                src={previewUrl}
-                                alt="预览"
-                                className="max-w-full h-auto rounded-lg"
-                            />
-                        </div>
-                    )}
+                <CardContent>
                     <div className="space-y-2">
                         <Label htmlFor="image-title">图片标题</Label>
                         <Input
@@ -152,10 +141,32 @@ export default function UploadPage() {
                             onChange={handleTitleChange}
                         />
                     </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="picture">选择图片</Label>
+                        <Input
+                            id="picture"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                        />
+                    </div>
+                    {previewUrl && (
+                        <div className="mt-4">
+                            <img
+                                src={previewUrl}
+                                alt="预览"
+                                className="max-w-fit max-h-60 rounded-lg"
+                            />
+                        </div>
+                    )}
                 </CardContent>
                 <CardFooter>
-                    <Button onClick={handleSubmit} className="w-full">
-                        上传
+                    <Button
+                        onClick={handleSubmit}
+                        disabled={!selectedFile || isUploading}
+                        className="w-full"
+                    >
+                        {isUploading ? 'Uploading...' : 'Upload'}
                     </Button>
                 </CardFooter>
             </Card>
@@ -220,7 +231,7 @@ export default function UploadPage() {
 }
 {/*                        type="submit"*/
 }
-{/*                        className={`px-6 py-2 mt-4 text-white rounded-lg ${isUploading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-900'}`}*/
+{/*                        className={`px-6 py-2 mt-4 text-white rounded-lg ${isUploading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-900'}`*/
 }
 {/*                        disabled={isUploading}*/
 }
