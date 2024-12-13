@@ -22,46 +22,7 @@ export default function WorksPage() {
             return;
         }
 
-        try {
-            // Check for cached data if not forcing refresh
-            if (!forceRefresh) {
-                const cachedWorks = localStorage.getItem('works');
-                if (cachedWorks) {
-                    setWorks({
-                        media: JSON.parse(cachedWorks),
-                        pagination: {
-                            currentPage: 1,
-                            totalPages: 1,
-                            totalItems: 0,
-                            itemsPerPage: 10
-                        }
-                    });
-                    setIsRefreshing(false);
-                    return;
-                }
-            }
 
-            const response = await fetch('https://wp-api.gluttongk.com/api/users/listWorks?limit=100&page=1', {
-                headers: {
-                    'Authorization': `${token}`
-                }
-            });
-
-            if (response.ok) {
-                const data: GenericResponse<MediaListResponse> = await response.json();
-                if (data.success && data.data) {
-                    setWorks(data.data);
-                    localStorage.setItem('works', JSON.stringify(data.data.media));
-                } else {
-                    setError(data.message || 'Failed to fetch works');
-                }
-            } else {
-                const data: GenericResponse<null> = await response.json();
-                setError(data.message || 'Failed to fetch works');
-            }
-        } catch (err) {
-            setError('An error occurred. Please try again.');
-        }
         setIsRefreshing(false);
     };
 
