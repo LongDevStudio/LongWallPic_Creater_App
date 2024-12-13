@@ -7,6 +7,7 @@ import {Button} from "@/components/ui/button"
 import {Input} from "@/components/ui/input"
 import {Label} from "@/components/ui/label"
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card"
+import {Header} from "@/components/Header";
 
 export default function UploadPage() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -125,129 +126,52 @@ export default function UploadPage() {
     }, [previewUrl])
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-            <Card>
-                <CardHeader>
-                    <CardTitle>上传图片</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="space-y-2">
-                        <Label htmlFor="image-title">图片标题</Label>
-                        <Input
-                            id="image-title"
-                            type="text"
-                            placeholder="请输入图片标题"
-                            value={title}
-                            onChange={handleTitleChange}
-                        />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="picture">选择图片</Label>
-                        <Input
-                            id="picture"
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                        />
-                    </div>
-                    {previewUrl && (
-                        <div className="mt-4">
-                            <img
-                                src={previewUrl}
-                                alt="预览"
-                                className="max-w-fit max-h-60 rounded-lg"
+        <div className="flex flex-col min-h-screen">
+            <Header />
+            <div className="flex-1 bg-gray-100 flex items-center justify-center">
+                <Card className="w-[450px]">
+                    <CardHeader>
+                        <CardTitle>Upload Your Work</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid w-full items-center gap-4">
+                            <Label htmlFor="image-title">图片标题</Label>
+                            <Input
+                                id="image-title"
+                                type="text"
+                                placeholder="请输入图片标题"
+                                value={title}
+                                onChange={handleTitleChange}
                             />
+                            <Label htmlFor="picture">选择图片</Label>
+                            <Input
+                                id="picture"
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                            />
+                            {previewUrl && (
+                                <div className="mt-4">
+                                    <img
+                                        src={previewUrl}
+                                        alt="预览"
+                                        className="max-w-fit max-h-60 rounded-lg"
+                                    />
+                                </div>
+                            )}
                         </div>
-                    )}
-                </CardContent>
-                <CardFooter>
-                    <Button
-                        onClick={handleSubmit}
-                        disabled={!selectedFile || isUploading}
-                        className="w-full"
-                    >
-                        {isUploading ? 'Uploading...' : 'Upload'}
-                    </Button>
-                </CardFooter>
-            </Card>
+                    </CardContent>
+                    <CardFooter>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={!selectedFile || isUploading}
+                            className="w-full"
+                        >
+                            {isUploading ? 'Uploading...' : 'Upload'}
+                        </Button>
+                    </CardFooter>
+                </Card>
+            </div>
         </div>
-
     );
-}
-
-{/*<div className="flex items-center justify-center min-h-screen bg-gray-100">*/
-}
-{/*    <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg">*/
-}
-{/*        <h3 className="text-2xl font-bold text-center">Upload an Image</h3>*/
-}
-{/*        <form onSubmit={handleSubmit}>*/
-}
-{/*            <div className="mt-4">*/
-}
-{/*                <input*/
-}
-{/*                    type="file"*/
-}
-{/*                    accept="image/*"*/
-}
-{/*                    onChange={handleFileChange}*/
-}
-{/*                    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"*/
-}
-{/*                    required*/
-}
-{/*                />*/
-}
-{/*                {preview && (*/
-}
-{/*                    <div className="mt-4 max-h-60 max-w-30">*/
-}
-{/*                        <img src={preview} alt="Preview" className="max-h-100 max-w-100"/>*/
-}
-{/*                    </div>*/
-}
-{/*                )}*/
-}
-{/*                <input*/
-}
-{/*                    type="text"*/
-}
-{/*                    placeholder="Title"*/
-}
-{/*                    value={title}*/
-}
-{/*                    onChange={(e) => setTitle(e.target.value)}*/
-}
-{/*                    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"*/
-}
-{/*                    required*/
-}
-{/*                />*/
-}
-{/*                <div className="flex items-baseline justify-between">*/
-}
-{/*                    <button*/
-}
-{/*                        type="submit"*/
-}
-{/*                        className={`px-6 py-2 mt-4 text-white rounded-lg ${isUploading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-900'}`*/
-}
-{/*                        disabled={isUploading}*/
-}
-{/*                    >*/
-}
-{/*                        {isUploading ? 'Uploading...' : 'Upload'}*/
-}
-{/*                    </button>*/
-}
-{/*                </div>*/
-}
-{/*            </div>*/
-}
-{/*        </form>*/
-}
-{/*    </div>*/
-}
-{/*</div>*/
 }

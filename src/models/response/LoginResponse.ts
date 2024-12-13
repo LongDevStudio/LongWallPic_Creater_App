@@ -5,6 +5,7 @@ interface User {
     email: string;
     avatar: string | null;
     is_creator: boolean;
+    doc_id?: string;
 }
 
 interface LoginResponse {

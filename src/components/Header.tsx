@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
+import { LanguageSelector } from "./LanguageSelector"
 
 export function Header() {
   const { isLoggedIn, logout } = useAuth()
@@ -15,7 +16,7 @@ export function Header() {
   }
 
   return (
-    <header className="p-4 bg-gradient-to-r from-purple-600 to-blue-600">
+    <header className="w-full p-4 bg-gradient-to-r from-purple-600 to-blue-600">
       <nav className="flex items-center justify-between max-w-7xl mx-auto">
         <Link href="/" className="text-2xl font-bold text-white">
           WallpaperWizard
@@ -29,7 +30,7 @@ export function Header() {
                 className="text-white hover:text-white hover:bg-white/20"
                 onClick={() => router.push('/upload')}
               >
-                Upload
+                Upload Work
               </Button>
               <Button
                 variant="ghost"
@@ -55,6 +56,7 @@ export function Header() {
               Login
             </Button>
           )}
+          <LanguageSelector />
         </div>
       </nav>
     </header>
