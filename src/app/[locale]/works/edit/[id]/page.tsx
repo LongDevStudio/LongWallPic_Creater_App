@@ -1,10 +1,11 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { Media } from '@/models/response/MediaListResponse';
 
-export default function EditWorkPage({ params }: { params: { id: string } }) {
+export default function EditWorkPage(props: { params: Promise<{ id: string }> }) {
+    const params = use(props.params);
     const [work, setWork] = useState<Media | null>(null);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
