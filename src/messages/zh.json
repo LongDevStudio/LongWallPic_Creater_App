@@ -1,85 +1,96 @@
 {
-    "hero": {
-      "title": "改变你的屏幕",
-      "subtitle": "轻触即可发现并设置精美壁纸",
-      "downloadButton": "立即下载"
-    },
-    "features": {
-      "title": "为什么选择壁纸精灵？",
-      "cards": {
-        "mobile": {
-          "title": "移动优化",
-          "description": "为您的设备提供完美尺寸的壁纸，每一次都是。"
-        },
-        "collection": {
-          "title": "海量收藏",
-          "description": "各种类别的数千张高质量壁纸。"
-        },
-        "updates": {
-          "title": "每日更新",
-          "description": "每天添加新鲜壁纸，让您的屏幕保持精彩。"
-        }
-      }
-    },
-    "showcase": {
-      "title": "体验壁纸精灵",
-      "interface": {
-        "title": "直观界面",
-        "description": "轻松浏览我们庞大的壁纸收藏。我们应用程序的简洁设计让您轻松找到并设置完美壁纸。"
+  "upload": {
+    "pageTitle": "上传作品",
+    "imageTitle": "图片标题",
+    "imageTitlePlaceholder": "请输入图片标题",
+    "selectImage": "选择图片",
+    "uploadButton": "上传",
+    "uploading": "上传中...",
+    "loginFirst": "请先登录",
+    "uploadSuccess": "文件上传成功",
+    "uploadFailed": "文件上传失败"
+  },
+  "hero": {
+    "title": "改变你的屏幕",
+    "subtitle": "轻触即可发现并设置精美壁纸",
+    "downloadButton": "立即下载"
+  },
+  "features": {
+    "title": "为什么选择壁纸精灵？",
+    "cards": {
+      "mobile": {
+        "title": "移动优化",
+        "description": "为您的设备提供完美尺寸的壁纸，每一次都是。"
       },
-      "oneTab": {
-        "title": "一键应用",
-        "description": "找到喜欢的壁纸？只需一键即可应用到您的设备。就是这么简单！"
+      "collection": {
+        "title": "海量收藏",
+        "description": "各种类别的数千张高质量壁纸。"
       },
-      "recommendations": {
-        "title": "个性化推荐",
-        "description": "使用壁纸精灵越多，它就越能准确推荐您喜欢的壁纸。"
+      "updates": {
+        "title": "每日更新",
+        "description": "每天添加新鲜壁纸，让您的屏幕保持精彩。"
       }
-    },
-    "creator": {
-      "title": "加入我们的创作者社区",
-      "features": {
-        "showcase": {
-          "title": "展示您的艺术",
-          "description": "向全球数百万用户分享您独特的壁纸设计。"
-        },
-        "earn": {
-          "title": "赚取收入",
-          "description": "通过创意赚钱。每次壁纸被下载都能获得收入。"
-        },
-        "grow": {
-          "title": "扩大粉丝群",
-          "description": "在我们充满活力的社区中建立关注者并与其他艺术家联系。"
-        }
-      },
-      "button": "成为创作者"
-    },
-    "roadmap": {
-      "title": "激动人心的发展蓝图",
-      "items": {
-        "tablet": {
-          "title": "平板版本",
-          "description": "为大屏幕优化，将您喜爱的壁纸带到平板设备上。"
-        },
-        "desktop": {
-          "title": "桌面版本",
-          "description": "适用于您电脑的壁纸精灵，与移动体验同步。"
-        },
-        "tv": {
-          "title": "智能电视应用",
-          "description": "用精美壁纸改变您的客厅。"
-        },
-        "visionOS": {
-          "title": "VisionOS版本",
-          "description": "使用苹果VisionOS版壁纸精灵，步入未来。"
-        }
-      }
-    },
-    "download": {
-      "title": "准备好改变您的屏幕了吗？",
-      "subtitle": "立即下载壁纸精灵，为您的设备带来全新外观！"
-    },
-    "footer": {
-      "copyright": "© 2024 壁纸精灵。保留所有权利。"
     }
+  },
+  "showcase": {
+    "title": "体验壁纸精灵",
+    "interface": {
+      "title": "直观界面",
+      "description": "轻松浏览我们庞大的壁纸收藏。我们应用程序的简洁设计让您轻松找到并设置完美壁纸。"
+    },
+    "oneTab": {
+      "title": "一键应用",
+      "description": "找到喜欢的壁纸？只需一键即可应用到您的设备。就是这么简单！"
+    },
+    "recommendations": {
+      "title": "个性化推荐",
+      "description": "使用壁纸精灵越多，它就越能准确推荐您喜欢的壁纸。"
+    }
+  },
+  "creator": {
+    "title": "加入我们的创作者社区",
+    "features": {
+      "showcase": {
+        "title": "展示您的艺术",
+        "description": "向全球数百万用户分享您独特的壁纸设计。"
+      },
+      "earn": {
+        "title": "赚取收入",
+        "description": "通过创意赚钱。每次壁纸被下载都能获得收入。"
+      },
+      "grow": {
+        "title": "扩大粉丝群",
+        "description": "在我们充满活力的社区中建立关注者并与其他艺术家联系。"
+      }
+    },
+    "button": "成为创作者"
+  },
+  "roadmap": {
+    "title": "激动人心的发展蓝图",
+    "items": {
+      "tablet": {
+        "title": "平板版本",
+        "description": "为大屏幕优化，将您喜爱的壁纸带到平板设备上。"
+      },
+      "desktop": {
+        "title": "桌面版本",
+        "description": "适用于您电脑的壁纸精灵，与移动体验同步。"
+      },
+      "tv": {
+        "title": "智能电视应用",
+        "description": "用精美壁纸改变您的客厅。"
+      },
+      "visionOS": {
+        "title": "VisionOS版本",
+        "description": "使用苹果VisionOS版壁纸精灵，步入未来。"
+      }
+    }
+  },
+  "download": {
+    "title": "准备好改变您的屏幕了吗？",
+    "subtitle": "立即下载壁纸精灵，为您的设备带来全新外观！"
+  },
+  "footer": {
+    "copyright": "© 2024 壁纸精灵。保留所有权利。"
   }
+}

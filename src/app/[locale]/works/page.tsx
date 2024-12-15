@@ -55,6 +55,14 @@ export default function WorksPage() {
     };
 
     useEffect(() => {
+        // Check for authentication when component mounts
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/');
+        }
+    }, [router]);
+
+    useEffect(() => {
         fetchWorks();
     }, []);
 

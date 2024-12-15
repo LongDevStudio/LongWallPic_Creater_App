@@ -1,85 +1,96 @@
 {
-    "hero": {
-      "title": "Transform Your Screen",
-      "subtitle": "Discover and set stunning wallpapers with just a tap",
-      "downloadButton": "Download Now"
-    },
-    "features": {
-      "title": "Why Choose WallpaperWizard?",
-      "cards": {
-        "mobile": {
-          "title": "Mobile Optimized",
-          "description": "Perfectly sized wallpapers for your device, every time."
-        },
-        "collection": {
-          "title": "Vast Collection",
-          "description": "Thousands of high-quality wallpapers across various categories."
-        },
-        "updates": {
-          "title": "Daily Updates",
-          "description": "Fresh wallpapers added daily to keep your screen exciting."
-        }
-      }
-    },
-    "showcase": {
-      "title": "See WallpaperWizard in Action",
-      "interface": {
-        "title": "Intuitive Interface",
-        "description": "Browse through our vast collection of wallpapers with ease. Our app's sleek design makes finding and setting your perfect wallpaper a breeze."
+  "upload": {
+    "pageTitle": "Upload Your Work",
+    "imageTitle": "Image Title",
+    "imageTitlePlaceholder": "Please enter image title",
+    "selectImage": "Select Image",
+    "uploadButton": "Upload",
+    "uploading": "Uploading...",
+    "loginFirst": "Please login first",
+    "uploadSuccess": "File uploaded successfully",
+    "uploadFailed": "File upload failed"
+  },
+  "hero": {
+    "title": "Transform Your Screen",
+    "subtitle": "Discover and set stunning wallpapers with just a tap",
+    "downloadButton": "Download Now"
+  },
+  "features": {
+    "title": "Why Choose WallpaperWizard?",
+    "cards": {
+      "mobile": {
+        "title": "Mobile Optimized",
+        "description": "Perfectly sized wallpapers for your device, every time."
       },
-      "oneTab": {
-        "title": "One-Tap Apply",
-        "description": "Found a wallpaper you love? Apply it to your device with just one tap. It's that simple!"
+      "collection": {
+        "title": "Vast Collection",
+        "description": "Thousands of high-quality wallpapers across various categories."
       },
-      "recommendations": {
-        "title": "Personalized Recommendations",
-        "description": "The more you use WallpaperWizard, the better it gets at suggesting wallpapers you'll love."
+      "updates": {
+        "title": "Daily Updates",
+        "description": "Fresh wallpapers added daily to keep your screen exciting."
       }
-    },
-    "creator": {
-      "title": "Join Our Creator Community",
-      "features": {
-        "showcase": {
-          "title": "Showcase Your Art",
-          "description": "Share your unique wallpaper designs with millions of users worldwide."
-        },
-        "earn": {
-          "title": "Earn Revenue",
-          "description": "Get paid for your creativity. Earn money every time your wallpaper is downloaded."
-        },
-        "grow": {
-          "title": "Grow Your Fanbase",
-          "description": "Build a following and connect with other artists in our vibrant community."
-        }
-      },
-      "button": "Become a Creator"
-    },
-    "roadmap": {
-      "title": "Our Exciting Roadmap",
-      "items": {
-        "tablet": {
-          "title": "Tablet Version",
-          "description": "Optimized for larger screens, bringing your favorite wallpapers to your tablet."
-        },
-        "desktop": {
-          "title": "Desktop Version",
-          "description": "WallpaperWizard for your computer, synced with your mobile experience."
-        },
-        "tv": {
-          "title": "Smart TV App",
-          "description": "Transform your living room with stunning wallpapers on your smart TV."
-        },
-        "visionOS": {
-          "title": "VisionOS Version",
-          "description": "Step into the future with WallpaperWizard for Apple's VisionOS."
-        }
-      }
-    },
-    "download": {
-      "title": "Ready to Transform Your Screen?",
-      "subtitle": "Download WallpaperWizard now and give your device a fresh look!"
-    },
-    "footer": {
-      "copyright": "© 2024 WallpaperWizard. All rights reserved."
     }
+  },
+  "showcase": {
+    "title": "See WallpaperWizard in Action",
+    "interface": {
+      "title": "Intuitive Interface",
+      "description": "Browse through our vast collection of wallpapers with ease. Our app's sleek design makes finding and setting your perfect wallpaper a breeze."
+    },
+    "oneTab": {
+      "title": "One-Tap Apply",
+      "description": "Found a wallpaper you love? Apply it to your device with just one tap. It's that simple!"
+    },
+    "recommendations": {
+      "title": "Personalized Recommendations",
+      "description": "The more you use WallpaperWizard, the better it gets at suggesting wallpapers you'll love."
+    }
+  },
+  "creator": {
+    "title": "Join Our Creator Community",
+    "features": {
+      "showcase": {
+        "title": "Showcase Your Art",
+        "description": "Share your unique wallpaper designs with millions of users worldwide."
+      },
+      "earn": {
+        "title": "Earn Revenue",
+        "description": "Get paid for your creativity. Earn money every time your wallpaper is downloaded."
+      },
+      "grow": {
+        "title": "Grow Your Fanbase",
+        "description": "Build a following and connect with other artists in our vibrant community."
+      }
+    },
+    "button": "Become a Creator"
+  },
+  "roadmap": {
+    "title": "Our Exciting Roadmap",
+    "items": {
+      "tablet": {
+        "title": "Tablet Version",
+        "description": "Optimized for larger screens, bringing your favorite wallpapers to your tablet."
+      },
+      "desktop": {
+        "title": "Desktop Version",
+        "description": "WallpaperWizard for your computer, synced with your mobile experience."
+      },
+      "tv": {
+        "title": "Smart TV App",
+        "description": "Transform your living room with stunning wallpapers on your smart TV."
+      },
+      "visionOS": {
+        "title": "VisionOS Version",
+        "description": "Step into the future with WallpaperWizard for Apple's VisionOS."
+      }
+    }
+  },
+  "download": {
+    "title": "Ready to Transform Your Screen?",
+    "subtitle": "Download WallpaperWizard now and give your device a fresh look!"
+  },
+  "footer": {
+    "copyright": "© 2024 WallpaperWizard. All rights reserved."
   }
+}

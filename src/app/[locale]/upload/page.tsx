@@ -8,8 +8,11 @@ import {Input} from "@/components/ui/input"
 import {Label} from "@/components/ui/label"
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card"
 import {Header} from "@/components/Header";
+import {useTranslations} from 'next-intl';
+import {useRouter} from 'next/navigation';
 
 export default function UploadPage() {
+    const router = useRouter();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
     const [title, setTitle] = useState<string>('');
@@ -18,6 +21,15 @@ export default function UploadPage() {
     const [describe, setDescribe] = useState<string>('');
     const [blob, setBlob] = useState<PutBlobResult | null>(null);
     const [isUploading, setIsUploading] = useState<boolean>(false);
+    const t = useTranslations('upload');
+
+    useEffect(() => {
+        // Check for authentication when component mounts
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/');
+        }
+    }, [router]);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -41,20 +53,14 @@ export default function UploadPage() {
 
         setIsUploading(true);
 
-        const formData = new FormData();
-        formData.append('file', selectedFile);
-        formData.append('title', title);
-
         const token = localStorage.getItem('token');
         if (!token) {
-            alert('Please login first');
+            alert(t('loginFirst'));
             setIsUploading(false);
             return;
         }
 
         try {
-
-            console.log('uploading large file');
             const newBlob = await upload(selectedFile.name, selectedFile, {
                 access: 'public',
                 handleUploadUrl: '/api/uploadWork',
@@ -65,49 +71,10 @@ export default function UploadPage() {
             });
 
             setBlob(newBlob);
-            alert('File uploaded successfully');
-            // if (selectedFile.size > 4 * 1024 * 1024) {
-            //     console.log('uploading large file');
-            //     const newBlob = await upload(selectedFile.name, selectedFile, {
-            //         access: 'public',
-            //         handleUploadUrl: '/api/uploadWork',
-            //         clientPayload: JSON.stringify({
-            //             token,
-            //             title,
-            //         })
-            //     });
-
-            //     setBlob(newBlob);
-            //     alert('File uploaded successfully');
-            // } else {
-            //     console.log('uploading small file');
-            //     const formData = new FormData();
-            //     formData.append('file', selectedFile);
-            //     formData.append('title', title);
-
-            //     const response = await fetch('https://wp-api.gluttongk.com/api/creator/uploadWork', {
-            //         method: 'POST',
-            //         body: formData,
-            //         headers: {
-            //             'Authorization': `${token}`
-            //         }
-            //     });
-
-            //     if (response.ok) {
-            //         alert('File uploaded successfully');
-            //         console.log('Uploading:', {file: selectedFile, title: title})
-            //         // 重置表单
-            //         setSelectedFile(null)
-            //         setPreviewUrl(null)
-            //         setTitle('')
-
-            //     } else {
-            //         alert('File uploadWork failed');
-            //     }
-            // }
+            alert(t('uploadSuccess'));
         } catch (err) {
             console.error('Upload error:', err);
-            alert('File upload failed');
+            alert(t('uploadFailed'));
         } finally {
             setIsUploading(false);
         }
@@ -131,19 +98,19 @@ export default function UploadPage() {
             <div className="flex-1 bg-gray-100 flex items-center justify-center">
                 <Card className="w-[450px]">
                     <CardHeader>
-                        <CardTitle>Upload Your Work</CardTitle>
+                        <CardTitle>{t('pageTitle')}</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="grid w-full items-center gap-4">
-                            <Label htmlFor="image-title">图片标题</Label>
+                            <Label htmlFor="image-title">{t('imageTitle')}</Label>
                             <Input
                                 id="image-title"
                                 type="text"
-                                placeholder="请输入图片标题"
+                                placeholder={t('imageTitlePlaceholder')}
                                 value={title}
                                 onChange={handleTitleChange}
                             />
-                            <Label htmlFor="picture">选择图片</Label>
+                            <Label htmlFor="picture">{t('selectImage')}</Label>
                             <Input
                                 id="picture"
                                 type="file"
@@ -154,7 +121,7 @@ export default function UploadPage() {
                                 <div className="mt-4">
                                     <img
                                         src={previewUrl}
-                                        alt="预览"
+                                        alt="preview"
                                         className="max-w-fit max-h-60 rounded-lg"
                                     />
                                 </div>
@@ -167,7 +134,7 @@ export default function UploadPage() {
                             disabled={!selectedFile || isUploading}
                             className="w-full"
                         >
-                            {isUploading ? 'Uploading...' : 'Upload'}
+                            {isUploading ? t('uploading') : t('uploadButton')}
                         </Button>
                     </CardFooter>
                 </Card>
