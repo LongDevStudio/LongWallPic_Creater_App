@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { ReactNode } from 'react'
-import { useState, useEffect } from 'react'
+import { ThemeProvider } from '@/contexts/ThemeContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,38 +30,13 @@ export default async function RootLayout({
     notFound()
   }
 
-  const [theme, setTheme] = useState('light')
-
-  useEffect(() => {
-    if (localStorage.getItem('theme') === 'dark') {
-      setTheme('dark')
-      document.documentElement.classList.add('dark')
-    } else {
-      setTheme('light')
-      document.documentElement.classList.remove('dark')
-    }
-  }, [])
-
-  const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark')
-      document.documentElement.classList.add('dark')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      setTheme('light')
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    }
-  }
-
   return (
-    <html lang={locale} className={theme}>
+    <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <button onClick={toggleTheme}>
-            Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
-          </button>
-          {children}
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
