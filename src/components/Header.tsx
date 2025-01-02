@@ -5,14 +5,26 @@ import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import { LanguageSelector } from "./LanguageSelector"
+import { useTheme } from '@/contexts/ThemeContext'
 
 export function Header() {
   const { isLoggedIn, logout } = useAuth()
   const router = useRouter()
+  const { theme, setTheme } = useTheme()
 
   const handleLogout = () => {
     logout()
     router.push('/')
+  }
+
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark')
+    } else if (theme === 'dark') {
+      setTheme('system')
+    } else {
+      setTheme('light')
+    }
   }
 
   return (
@@ -57,6 +69,13 @@ export function Header() {
             </Button>
           )}
           <LanguageSelector />
+          <Button
+            variant="ghost"
+            className="text-white hover:text-white hover:bg-white/20"
+            onClick={toggleTheme}
+          >
+            Toggle Theme
+          </Button>
         </div>
       </nav>
     </header>
