@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/image"
 
 export function AppShowcase() {
     return (
@@ -10,12 +10,14 @@ export function AppShowcase() {
                 <Image
                     src="/images/app-showcase/home-index.png"
                     alt="WallpaperWizard App Interface"
-                    layout="fill"
-                    objectFit="cover"
-                />
+                    fill
+                    sizes="100vw"
+                    style={{
+                        objectFit: "cover"
+                    }} />
             </div>
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-28 h-1 bg-gray-800 rounded-t-lg"></div>
         </div>
-    )
+    );
 }
 

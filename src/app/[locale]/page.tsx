@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import Image from "next/image"
 import {Button} from "@/components/ui/button"
 import {
     ArrowDown,
@@ -256,19 +256,21 @@ function RoadmapItem({icon, title, description, timeline}: {
 
 function Carousel({images, currentIndex}: { images: string[], currentIndex: number }) {
     return (
-        <div className="carousel">
+        (<div className="carousel">
             {images.map((src, index) => (
                 <Image
                     key={index}
                     src={src}
                     alt={''}
-                    layout="fill"
-                    objectFit="cover"
                     loading={'lazy'}
                     quality={75}
                     className={index === currentIndex ? 'opacity-100' : 'opacity-0'}
-                />
+                    fill
+                    sizes="100vw"
+                    style={{
+                        objectFit: "cover"
+                    }} />
             ))}
-        </div>
+        </div>)
     );
 }
