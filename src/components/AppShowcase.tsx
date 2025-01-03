@@ -8,7 +8,7 @@ export function AppShowcase() {
             </div>
             <div className="absolute top-0 bottom-0 left-0 right-0 overflow-hidden rounded-[2.5rem]">
                 <Image
-                    src="/app-screenshot.jpg"
+                    src="/images/app-showcase/home-index.png"
                     alt="WallpaperWizard App Interface"
                     layout="fill"
                     objectFit="cover"
