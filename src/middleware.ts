@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import createIntlMiddleware from 'next-intl/middleware';
 
 // Regular expression to match public files

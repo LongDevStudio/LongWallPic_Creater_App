@@ -1,7 +1,7 @@
 export const maxDuration = 60; // This function can run for a maximum of 5 seconds
 
 import {handleUpload, type HandleUploadBody} from '@vercel/blob/client';
-import {NextResponse} from 'next/server';
+import { NextResponse } from "next/server";
 import jwt from 'jsonwebtoken';
 import {sql} from "@vercel/postgres";
 import {createClient} from '@sanity/client';

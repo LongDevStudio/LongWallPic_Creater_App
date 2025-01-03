@@ -1,4 +1,4 @@
-import {NextResponse} from 'next/server';
+import { NextResponse } from "next/server";
 import {Resend} from 'resend';
 import {EmailTemplate, RestPwdEmailTemplate} from '@/components/email-template';
 import {Redis} from "@upstash/redis";
