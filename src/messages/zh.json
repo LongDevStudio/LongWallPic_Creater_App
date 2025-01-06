@@ -1,4 +1,11 @@
 {
+  "theme": {
+    "light": "浅色",
+    "dark": "深色",
+    "system": "系统",
+    "wine": "酒色",
+    "leafy": "自然"
+  },
   "upload": {
     "pageTitle": "上传作品",
     "imageTitle": "图片标题",

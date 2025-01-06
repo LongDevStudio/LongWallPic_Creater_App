@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import { LanguageSelector } from "./LanguageSelector"
+import { ThemeSelector } from "./ThemeSelector"
+import {useTranslations} from "next-intl";
 
 export function Header() {
+  const t = useTranslations()
   const { isLoggedIn, logout } = useAuth()
   const router = useRouter()
 
@@ -56,7 +59,10 @@ export function Header() {
                   Login
                 </Button>
             )}
+          </div>
+          <div className="absolute flex right-4 items-center gap-4">
             <LanguageSelector />
+            <ThemeSelector />
           </div>
         </nav>
       </header>

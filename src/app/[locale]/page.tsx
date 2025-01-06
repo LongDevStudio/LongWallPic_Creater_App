@@ -3,6 +3,12 @@
 import Image from "next/image"
 import {Button} from "@/components/ui/button"
 import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
     ArrowDown,
     Smartphone,
     ImageIcon,
@@ -13,18 +19,25 @@ import {
     Tablet,
     Monitor,
     Tv,
-    Glasses
+    Glasses,
+    Moon,
+    Sun,
+    Wine,
+    LeafyGreen
 } from 'lucide-react'
 import {AppShowcase} from '@/components/AppShowcase'
 import {Header} from '@/components/Header'
 import {useTranslations} from 'next-intl'
 import {useEffect, useState} from 'react';
 import {FaAndroid, FaApple} from 'react-icons/fa6'
+import { useTheme } from "next-themes"
+
 
 export default function Home() {
     const t = useTranslations()
     const [backgroundImages, setBackgroundImages] = useState<string[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const { setTheme, theme } = useTheme()
 
     useEffect(() => {
         const month = new Date().getMonth();
@@ -47,19 +60,51 @@ export default function Home() {
         return () => clearInterval(interval);
     }, [backgroundImages]);
 
+    const getThemeIcon = (theme: string) => {
+        switch (theme) {
+            case 'light':
+                return <Sun className="h-[1.2rem] w-[1.2rem]" />;
+            case 'dark':
+                return <Moon className="h-[1.2rem] w-[1.2rem]" />;
+            case 'system':
+                return <Monitor className="h-[1.2rem] w-[1.2rem]" />;
+            case 'wine':
+                return <Wine className="h-[1.2rem] w-[1.2rem]" />;
+            case 'leafy':
+                return <LeafyGreen className="h-[1.2rem] w-[1.2rem]" />;
+            default:
+                return <Sun className="h-[1.2rem] w-[1.2rem]" />;
+        }
+    };
+
     return (
         <div className="flex flex-col min-h-screen">
-            <Header/>
+            <Header />
             <main className="flex-grow">
+                {/* for test theme */}
+                {/*<div className="bg-background text-foreground">*/}
+                {/*    <div className="bg-card text-card-foreground">*/}
+                {/*        卡片内容*/}
+                {/*    </div>*/}
+                {/*    <button className="bg-primary text-primary-foreground">*/}
+                {/*        主要按钮*/}
+                {/*    </button>*/}
+                {/*    <button className="bg-secondary text-secondary-foreground">*/}
+                {/*        次要按钮*/}
+                {/*    </button>*/}
+                {/*</div>*/}
+
                 {/* Hero Section */}
                 <section
-                    className="relative h-[80vh] bg-gradient-to-b from-purple-600 to-blue-600 flex items-center justify-center px-4 text-center">
+                    className="relative h-[80vh] bg-gradient-to-b from-primary to-secondary flex items-center justify-center px-4 text-center">
                     <div className="z-10">
-                        <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">{t('hero.title')}</h2>
-                        <p className="text-xl text-white mb-8">{t('hero.subtitle')}</p>
+                        <h2 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-4">{t('hero.title')}</h2>
+                        <p className="text-xl text-primary-foreground mb-8">{t('hero.subtitle')}</p>
                         <Button
                             size="lg"
-                            className="bg-white text-purple-600 hover:bg-gray-100"
+                            className="bg-secondary hover:bg-secondary/90
+                            text-black
+                            dark:text-white"
                             onClick={() => document.getElementById('download-section')?.scrollIntoView({behavior: 'smooth'})}
                         >
                             {t('hero.downloadButton')}
@@ -209,7 +254,7 @@ export default function Home() {
                 </section>
             </main>
 
-            <footer className="bg-gray-800 text-white py-8 px-4 text-center">
+            <footer className="bg-secondary text-secondary-foreground py-8 px-4 text-center">
                 <p>{t('footer.copyright')}</p>
             </footer>
         </div>

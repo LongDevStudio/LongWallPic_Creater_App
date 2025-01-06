@@ -1,4 +1,11 @@
 {
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "wine": "Wine",
+    "leafy": "Nature"
+  },
   "upload": {
     "pageTitle": "Upload Your Work",
     "imageTitle": "Image Title",
