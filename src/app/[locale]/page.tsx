@@ -60,23 +60,6 @@ export default function Home() {
         return () => clearInterval(interval);
     }, [backgroundImages]);
 
-    const getThemeIcon = (theme: string) => {
-        switch (theme) {
-            case 'light':
-                return <Sun className="h-[1.2rem] w-[1.2rem]" />;
-            case 'dark':
-                return <Moon className="h-[1.2rem] w-[1.2rem]" />;
-            case 'system':
-                return <Monitor className="h-[1.2rem] w-[1.2rem]" />;
-            case 'wine':
-                return <Wine className="h-[1.2rem] w-[1.2rem]" />;
-            case 'leafy':
-                return <LeafyGreen className="h-[1.2rem] w-[1.2rem]" />;
-            default:
-                return <Sun className="h-[1.2rem] w-[1.2rem]" />;
-        }
-    };
-
     return (
         <div className="flex flex-col min-h-screen">
             <Header />
@@ -300,8 +283,24 @@ function RoadmapItem({icon, title, description, timeline}: {
 }
 
 function Carousel({images, currentIndex}: { images: string[], currentIndex: number }) {
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setMousePosition({
+            x: e.clientX - rect.left,
+            y: e.clientY - rect.top,
+        });
+    };
+
     return (
-        (<div className="carousel">
+        <div
+            className="carousel relative w-full h-full"
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+        >
             {images.map((src, index) => (
                 <Image
                     key={index}
@@ -309,13 +308,24 @@ function Carousel({images, currentIndex}: { images: string[], currentIndex: numb
                     alt={''}
                     loading={'lazy'}
                     quality={75}
-                    className={index === currentIndex ? 'opacity-100' : 'opacity-0'}
+                    className={`transition-opacity duration-1000 ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
                     fill
                     sizes="100vw"
                     style={{
                         objectFit: "cover"
-                    }} />
+                    }}
+                />
             ))}
-        </div>)
+            {/* 毛玻璃效果遮罩层 */}
+            <div
+                className="absolute inset-0 backdrop-blur-sm bg-black/30"
+                style={{
+                    backdropFilter: 'blur(8px)',
+                    WebkitBackdropFilter: 'blur(8px)',
+                    maskImage: isHovering ? `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, transparent 100%, black 100%)` : undefined,
+                    WebkitMaskImage: isHovering ? `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, transparent 100%, black 100%)` : undefined,
+                }}
+            />
+        </div>
     );
 }
