@@ -31,7 +31,7 @@ import {useTranslations} from 'next-intl'
 import {useEffect, useState} from 'react';
 import {FaAndroid, FaApple} from 'react-icons/fa6'
 import { useTheme } from "next-themes"
-
+import {TypewriterText} from '@/components/TypewriterText'
 
 export default function Home() {
     const t = useTranslations()
@@ -77,15 +77,17 @@ export default function Home() {
                 {/*    </button>*/}
                 {/*</div>*/}
 
+
+
                 {/* Hero Section */}
                 <section
                     className="relative h-[80vh] bg-gradient-to-b from-primary to-secondary flex items-center justify-center px-4 text-center">
                     <div className="z-10">
                         <h2 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-4">{t('hero.title')}</h2>
-                        <p className="text-xl text-primary-foreground mb-8">{t('hero.subtitle')}</p>
+                        <TypewriterText text={t('hero.subtitle')} className="text-xl text-primary-foreground" />
                         <Button
                             size="lg"
-                            className="bg-secondary hover:bg-secondary/90
+                            className="bg-secondary hover:bg-secondary/90 mt-8
                             text-black
                             dark:text-white"
                             onClick={() => document.getElementById('download-section')?.scrollIntoView({behavior: 'smooth'})}
