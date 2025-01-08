@@ -32,6 +32,7 @@ import {useEffect, useState} from 'react';
 import {FaAndroid, FaApple} from 'react-icons/fa6'
 import { useTheme } from "next-themes"
 import {TypewriterText} from '@/components/TypewriterText'
+import {RoadmapCarousel} from "@/components/RoadmapCarousel";
 
 export default function Home() {
     const t = useTranslations()
@@ -77,14 +78,12 @@ export default function Home() {
                 {/*    </button>*/}
                 {/*</div>*/}
 
-
-
                 {/* Hero Section */}
                 <section
                     className="relative h-[80vh] bg-gradient-to-b from-primary to-secondary flex items-center justify-center px-4 text-center">
                     <div className="z-10">
                         <h2 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-4">{t('hero.title')}</h2>
-                        <TypewriterText text={t('hero.subtitle')} className="text-xl text-primary-foreground" />
+                        <TypewriterText text={t('hero.subtitle')} className="text-xl text-primary-foreground"/>
                         <Button
                             size="lg"
                             className="bg-secondary hover:bg-secondary/90 mt-8
@@ -102,26 +101,26 @@ export default function Home() {
                 </section>
 
                 {/* Features Section */}
-                <section className="py-16 px-4 bg-gray-100">
-                    <h3 className="text-3xl font-bold text-center mb-12">{t('features.title')}</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                        <FeatureCard
-                            icon={<Smartphone className="w-12 h-12 text-purple-600"/>}
-                            title={t('features.cards.mobile.title')}
-                            description={t('features.cards.mobile.description')}
-                        />
-                        <FeatureCard
-                            icon={<ImageIcon className="w-12 h-12 text-purple-600"/>}
-                            title={t('features.cards.collection.title')}
-                            description={t('features.cards.collection.description')}
-                        />
-                        <FeatureCard
-                            icon={<Zap className="w-12 h-12 text-purple-600"/>}
-                            title={t('features.cards.updates.title')}
-                            description={t('features.cards.updates.description')}
-                        />
-                    </div>
-                </section>
+                {/*<section className="py-16 px-4 bg-gray-100">*/}
+                {/*    <h3 className="text-3xl font-bold text-center mb-12">{t('features.title')}</h3>*/}
+                {/*    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">*/}
+                {/*        <FeatureCard*/}
+                {/*            icon={<Smartphone className="w-12 h-12 text-purple-600"/>}*/}
+                {/*            title={t('features.cards.mobile.title')}*/}
+                {/*            description={t('features.cards.mobile.description')}*/}
+                {/*        />*/}
+                {/*        <FeatureCard*/}
+                {/*            icon={<ImageIcon className="w-12 h-12 text-purple-600"/>}*/}
+                {/*            title={t('features.cards.collection.title')}*/}
+                {/*            description={t('features.cards.collection.description')}*/}
+                {/*        />*/}
+                {/*        <FeatureCard*/}
+                {/*            icon={<Zap className="w-12 h-12 text-purple-600"/>}*/}
+                {/*            title={t('features.cards.updates.title')}*/}
+                {/*            description={t('features.cards.updates.description')}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*</section>*/}
 
                 {/* App Showcase Section */}
                 <section className="py-16 px-4 bg-gray-50">
@@ -138,6 +137,19 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
+
+                {/* Roadmap Section */}
+                <section className="py-16 px-4 bg-gray-100">
+                    <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-16">
+                        <div className="flex-1">
+                            <RoadmapCarousel/>
+                        </div>
+                        <div className="flex flex-col justify-start lg:sticky lg:top-24 lg:self-start">
+                            <h3 className="text-3xl font-bold mb-4 [writing-mode:vertical-rl] [text-orientation:upright]">{t('roadmap.title')}</h3>
+                        </div>
+                    </div>
+                </section>
+
 
                 {/* Creator Invitation Section */}
                 <section className="py-16 px-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
@@ -164,39 +176,6 @@ export default function Home() {
                             <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
                                 {t('creator.button')}
                             </Button>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Roadmap Section */}
-                <section className="py-16 px-4 bg-gray-50">
-                    <div className="max-w-5xl mx-auto">
-                        <h3 className="text-3xl font-bold text-center mb-12">{t('roadmap.title')}</h3>
-                        <div className="space-y-12">
-                            <RoadmapItem
-                                icon={<Tablet className="w-12 h-12 text-purple-600"/>}
-                                title={t('roadmap.items.tablet.title')}
-                                description={t('roadmap.items.tablet.description')}
-                                timeline="Q1 2025"
-                            />
-                            <RoadmapItem
-                                icon={<Monitor className="w-12 h-12 text-purple-600"/>}
-                                title={t('roadmap.items.desktop.title')}
-                                description={t('roadmap.items.desktop.description')}
-                                timeline="Q2 2025"
-                            />
-                            <RoadmapItem
-                                icon={<Tv className="w-12 h-12 text-purple-600"/>}
-                                title={t('roadmap.items.tv.title')}
-                                description={t('roadmap.items.tv.description')}
-                                timeline="Q3 2025"
-                            />
-                            <RoadmapItem
-                                icon={<Glasses className="w-12 h-12 text-purple-600"/>}
-                                title={t('roadmap.items.visionOS.title')}
-                                description={t('roadmap.items.visionOS.description')}
-                                timeline="Q4 2025"
-                            />
                         </div>
                     </div>
                 </section>

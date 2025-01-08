@@ -74,22 +74,122 @@
   },
   "roadmap": {
     "title": "Our Exciting Roadmap",
-    "items": {
-      "tablet": {
-        "title": "Tablet Version",
-        "description": "Optimized for larger screens, bringing your favorite wallpapers to your tablet."
-      },
-      "desktop": {
-        "title": "Desktop Version",
-        "description": "WallpaperWizard for your computer, synced with your mobile experience."
-      },
-      "tv": {
-        "title": "Smart TV App",
-        "description": "Transform your living room with stunning wallpapers on your smart TV."
-      },
-      "visionOS": {
-        "title": "VisionOS Version",
-        "description": "Step into the future with WallpaperWizard for Apple's VisionOS."
+    "subtitle": "Explore the future directions of WallpaperWizard",
+    "categories": {
+      "clients": "Cross-Platform Clients",
+      "creator": "Creator Tools",
+      "community": "Community Building",
+      "client-feature": "Client Features"
+    },
+    "clients": {
+      "subtitle": "Bringing the WallpaperWizard experience to all devices",
+      "items": {
+        "mobile": {
+          "title": "Mobile Version",
+          "description": "We will launch the mobile version first, allowing you to discover beautiful wallpapers anytime and anywhere. Android will be released later than iOS."
+        },
+        "next-step": {
+          "title": "Next Step",
+          "description": "After the mobile version, we will expand to other platforms, including tablets, desktops, smart TVs, and more."
+        },
+        "tablet": {
+          "title": "Tablet Version",
+          "description": "Optimized for larger screens, bringing your favorite wallpapers to your tablet."
+        },
+        "browser": {
+          "title": "Browser Extension",
+          "description": "Quickly access WallpaperWizard from your browser to find and apply wallpapers."
+        },
+        "desktop": {
+          "title": "Desktop Version",
+          "description": "WallpaperWizard for your computer, synced with your mobile experience."
+        },
+        "tv": {
+          "title": "Smart TV App",
+          "description": "Transform your living room with stunning wallpapers on your smart TV."
+        },
+        "visionOS": {
+          "title": "VisionOS Version",
+          "description": "Step into the future with WallpaperWizard for Apple's VisionOS."
+        },
+        "in-future": {
+          "title": "More Clients",
+          "description": "More devices (including tvOS, visionOS, Android TV) are in the works, so stay tuned."
+        }
+      }
+    },
+    "creator": {
+      "subtitle": "Empowering creators with powerful tools",
+      "items": {
+        "channel": {
+          "title": "Channel",
+          "description": "Create your own channel and get your exclusive benefits."
+        },
+        "profit": {
+            "title": "Profits",
+            "description": "Earn money from your creations. The more downloads, the more you earn."
+        },
+        "profile": {
+            "title": "Creator Profiles",
+            "description": "Assist creators in creating a website that showcases you. Your fans can get your updates here. It is also a place where you can interact with fans."
+        },
+        "in-future": {
+          "title": "More Features",
+          "description": "More features are in development, including a creator marketplace, mentorship program, and more."
+        }
+      }
+    },
+    "community": {
+      "subtitle": "Building a vibrant creator community",
+      "items": {
+        "creatorProfiles": {
+          "title": "Creator Profiles",
+          "description": "Showcase your portfolio and attract more followers."
+        },
+        "communityEvents": {
+          "title": "Community Events",
+          "description": "Participate in online and offline events to interact with other creators."
+        },
+        "mentorshipProgram": {
+          "title": "Mentorship Program",
+          "description": "Experienced creators guide newcomers, fostering community growth."
+        },
+        "challengesAndContests": {
+          "title": "Challenges and Contests",
+          "description": "Participate in regular creative challenges to win rewards and recognition."
+        }
+      }
+    },
+    "client-feature": {
+      "items": {
+        "UI/UX": {
+          "title": "UI/UX Optimization",
+          "description": "Continuously optimize user experience, making your experience more enjoyable."
+        },
+        "darkMode": {
+          "title": "Dark Mode",
+          "description": "Switch to dark mode for a more comfortable viewing experience, especially at night."
+        },
+        "multiLanguage": {
+          "title": "Multi-Language Support",
+          "description": "Support for multiple languages to cater to a global audience."
+        },
+        "widget": {
+          "title": "Widget",
+          "description": "Quickly view and apply wallpapers with our convenient widget."
+        },
+        "browser": {
+          "title": "Browser Integrated",
+          "description": "Browse major public wallpapers in our client to find wallpapers you like."
+        },
+        "composer": {
+          "title": "Wallpaper Composer",
+          "description": "Create your own wallpapers with our easy-to-use composer tool."
+        },
+        "not-only-wp": {
+          "title": "Not Only Wallpapers",
+          "description": "We also introduce ring tones, themes, and more features to make your device more personalized."
+        }
       }
     }
   },

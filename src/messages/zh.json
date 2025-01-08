@@ -73,23 +73,125 @@
     "button": "成为创作者"
   },
   "roadmap": {
-    "title": "激动人心的发展蓝图",
-    "items": {
-      "tablet": {
-        "title": "平板版本",
-        "description": "为大屏幕优化，将您喜爱的壁纸带到平板设备上。"
-      },
-      "desktop": {
-        "title": "桌面版本",
-        "description": "适用于您电脑的壁纸精灵，与移动体验同步。"
-      },
-      "tv": {
-        "title": "智能电视应用",
-        "description": "用精美壁纸改变您的客厅。"
-      },
-      "visionOS": {
-        "title": "VisionOS版本",
-        "description": "使用苹果VisionOS版壁纸精灵，步入未来。"
+    "title": "我们激动人心的发展蓝图",
+    "subtitle": "探索壁纸精灵的未来发展方向",
+    "up-coming": "即将推出",
+    "completed": "现已上架",
+    "categories": {
+      "clients": "全平台客户端",
+      "creator": "创作者工具",
+      "community": "社区建设",
+      "client-feature": "客户端功能"
+    },
+    "clients": {
+      "subtitle": "为各种设备带来精彩壁纸体验",
+      "items": {
+        "mobile": {
+          "title": "移动(手机)版本",
+          "description": "我们会先上架移动版本，让您随时随地发现精美壁纸。安卓系统会比 iOS 系统稍晚发布。"
+        },
+        "next-step": {
+          "title": "下一代计划",
+          "description": "为最新设备优化，让您的屏幕更加炫酷。"
+        },
+        "tablet": {
+          "title": "平板版本",
+          "description": "为大屏幕优化，将您喜爱的壁纸带到平板设备上。"
+        },
+        "browser": {
+          "title": "浏览器插件",
+          "description": "在浏览器中发现和设置壁纸，让您的网络体验更加美好。"
+        },
+        "desktop": {
+          "title": "桌面版本",
+          "description": "适用于您电脑的壁纸精灵，与移动体验同步。"
+        },
+        "tv": {
+          "title": "智能电视应用",
+          "description": "用精美壁纸改变您的客厅。"
+        },
+        "visionOS": {
+          "title": "VisionOS版本",
+          "description": "使用苹果VisionOS版壁纸精灵，步入未来。"
+        },
+        "in-future": {
+          "title": "更多精彩",
+          "description": "更多设备(包括 Windows App, tvOS, visionOS, Android TV)正在筹备中，敬请期待。"
+        }
+      }
+    },
+    "creator": {
+      "subtitle": "为创作者提供强大的工具",
+      "items": {
+        "channel": {
+          "title": "创作者频道",
+          "description": "创建你独有的频道, 获取你独享的收益。"
+        },
+        "profit": {
+            "title": "创作者收益",
+            "description": "规范收益模式，让创作者更容易获得收益。"
+        },
+        "profile": {
+            "title": "创作者主页",
+            "description": "协助创作者创建展示您的个人的网站。您的粉丝可以从这里获取您的动态。也可以和粉丝互动的场所。"
+        },
+        "in-future": {
+            "title": "更多功能",
+            "description": "我们还将推出更多功能, 让创作者更容易获得收益。"
+        }
+      }
+    },
+    "community": {
+      "subtitle": "打造充满活力的创作者社区",
+      "items": {
+        "creatorProfiles": {
+          "title": "创作者主页",
+          "description": "展示您的作品集，吸引更多关注者。"
+        },
+        "communityEvents": {
+          "title": "社区活动",
+          "description": "参与线上线下活动，与其他创作者交流互动。"
+        },
+        "mentorshipProgram": {
+          "title": "导师计划",
+          "description": "经验丰富的创作者指导新人，促进社区成长。"
+        },
+        "challengesAndContests": {
+          "title": "挑战与比赛",
+          "description": "参与定期举办的创作挑战，赢取奖励和认可。"
+        }
+      }
+    },
+    "client-feature": {
+      "items": {
+        "UI/UX": {
+          "title": "UI/UX优化",
+          "description": "持续优化用户体验，让您更加愉悦地使用我们的产品。"
+        },
+        "darkMode": {
+          "title": "深色模式",
+          "description": "保护您的眼睛，让您在夜间使用更加舒适。"
+        },
+        "multiLanguage": {
+          "title": "多语言支持",
+          "description": "支持多种语言，让您更方便使用。"
+        },
+        "widget": {
+          "title": "桌面小组件",
+          "description": "在桌面上快速查看壁纸，随时更换。"
+        },
+        "browser": {
+          "title": "浏览主流的公开壁纸网站",
+          "description": "在我们的客户端中浏览主流的公开壁纸网站，找到您喜欢的壁纸。"
+        },
+        "composer": {
+          "title": "壁纸创作工具",
+          "description": "使用我们的创作工具，创作属于您自己的壁纸。"
+        },
+        "not-only-wp": {
+            "title": "不仅仅是壁纸",
+            "description": "我们还将推出铃声, 主题等更多功能，让您的设备更加个性化。"
+        }
       }
     }
   },
