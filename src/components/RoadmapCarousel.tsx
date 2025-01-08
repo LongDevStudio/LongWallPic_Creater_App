@@ -1,7 +1,7 @@
 'use client'
 
 import React, {useState} from 'react'
-import {ChevronLeft, ChevronRight, Compass, Cpu, Glasses, Monitor, Smartphone, Tablet, Tv, Rss, Wallet} from 'lucide-react'
+import {ChevronLeft, ChevronRight, Compass, Cpu, Glasses, Monitor, Smartphone, Tablet, Tv, Rss, Wallet, User, ScanFace, Target} from 'lucide-react'
 import {useTranslations} from 'next-intl'
 import {Button} from '@/components/ui/button'
 import {Card} from '@/components/ui/card'
@@ -85,7 +85,7 @@ export function RoadmapCarousel() {
                 {
                     title: t('clients.items.in-future.title'),
                     description: t('clients.items.tv.description'),
-                    // icon: <Tv className="w-12 h-12 text-purple-600"/>,
+                    icon: <Target className="w-12 h-12 text-purple-600"/>,
                     // step: 'Milestone 2025 Q3',
                     milestone: 4,
                     milestoneStep: []
@@ -99,7 +99,7 @@ export function RoadmapCarousel() {
                 {
                     title: t('client-feature.items.UI/UX.title'),
                     description: t('client-feature.items.UI/UX.description'),
-                    icon: <Cpu className="w-12 h-12 text-purple-600"/>,
+                    icon: <ScanFace className="w-12 h-12 text-purple-600"/>,
                     milestone: 1,
                     milestoneStep: [
                         {
@@ -109,8 +109,8 @@ export function RoadmapCarousel() {
                             work_status: 'working'
                         },
                         {
-                            title: t('client-feature.items.darkMode.title'),
-                            description: t('client-feature.items.darkMode.description'),
+                            title: t('client-feature.items.multiLanguage.title'),
+                            description: t('client-feature.items.multiLanguage.description'),
                             milestone: 2,
                         },
                     ]
@@ -132,7 +132,7 @@ export function RoadmapCarousel() {
                 {
                     title: t('client-feature.items.not-only-wp.title'),
                     description: t('client-feature.items.not-only-wp.description'),
-                    icon: <Tv className="w-12 h-12 text-purple-600"/>,
+                    icon: <Target className="w-12 h-12 text-purple-600"/>,
                     milestone: 4,
                     milestoneStep: []
                 }
@@ -160,7 +160,7 @@ export function RoadmapCarousel() {
                 {
                     title: t('creator.items.profile.title'),
                     description: t('creator.items.profile.description'),
-                    icon: <Compass className="w-12 h-12 text-purple-600"/>,
+                    icon: <User className="w-12 h-12 text-purple-600"/>,
                     // step: 'Milestone 2025 Q3',
                     milestone: 3,
                     milestoneStep: []
