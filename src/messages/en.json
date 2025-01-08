@@ -195,7 +195,21 @@
   },
   "download": {
     "title": "Ready to Transform Your Screen?",
-    "subtitle": "Download WallpaperWizard now and give your device a fresh look!"
+    "subtitle": "Download WallpaperWizard now and give your device a fresh look!",
+    "tagline": {
+      "tooltip": "Didn't receive an invitation? Click the link to find out how to get an invitation."
+    }
+  },
+  "feedback": {
+    "pageTitle": "Feedback",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "submitSuccess": "Thank you for your feedback!",
+    "submitFailed": "Failed to submit feedback"
   },
   "footer": {
     "copyright": "© 2024 WallpaperWizard. All rights reserved."

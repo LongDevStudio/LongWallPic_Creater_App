@@ -33,6 +33,7 @@ import {FaAndroid, FaApple} from 'react-icons/fa6'
 import { useTheme } from "next-themes"
 import {TypewriterText} from '@/components/TypewriterText'
 import {RoadmapCarousel} from "@/components/RoadmapCarousel";
+import {FloatingFeedbackButton} from '@/components/FloatingFeedbackButton'
 
 export default function Home() {
     const t = useTranslations()
@@ -65,6 +66,7 @@ export default function Home() {
         <div className="flex flex-col min-h-screen">
             <Header />
             <main className="flex-grow">
+                <FloatingFeedbackButton />
                 {/* for test theme */}
                 {/*<div className="bg-background text-foreground">*/}
                 {/*    <div className="bg-card text-card-foreground">*/}
@@ -181,56 +183,13 @@ export default function Home() {
                 </section>
 
                 {/* Download Section */}
-                <section id="download-section" className="py-16 px-4 bg-white text-center">
-                    <h3 className="text-3xl font-bold mb-4">{t('download.title')}</h3>
-                    <p className="mb-8 text-gray-600">{t('download.subtitle')}</p>
-                    <div className="flex justify-center gap-6 px-4"> {/* Changed space-x-4 to gap-6 and added px-4 */}
-                        <div
-                            className="bg-black text-white hover:bg-gray-900 w-44 h-16 rounded-xl cursor-pointer transition-all duration-200" // Modified width, height and added transition
-                            onClick={() => window.open('https://apps.apple.com/your-app-link', '_blank')}
-                        >
-                            <div
-                                className="flex items-center justify-center w-full h-full px-4 space-x-2"> {/* Added px-4 */}
-                                <div className={'flex w-1/4 h-full items-center justify-center'}>
-                                    <FaApple size={28}/> {/* Adjusted size */}
-                                </div>
-                                <div className="flex-1 flex flex-col items-start justify-center leading-tight">
-                                    <span className="text-xs">Download on the</span>
-                                    <span className="text-lg font-semibold">App Store</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            className="bg-black text-white w-44 h-16 rounded-xl cursor-not-allowed opacity-70 transition-all duration-200" // Modified width, height and added transition
-                        >
-                            <div
-                                className="flex items-center justify-center w-full h-full px-4 space-x-2"> {/* Added px-4 */}
-                                <div className={'flex w-1/4 h-full items-center justify-center'}>
-                                    <FaAndroid size={28}/> {/* Adjusted size */}
-                                </div>
-                                <div className="flex-1 flex flex-col items-start justify-center leading-tight">
-                                    <span className="text-xs">Coming soon</span>
-                                    <span className="text-lg font-semibold">Play Store</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <DownloadSection t={t} />
+
             </main>
 
             <footer className="bg-secondary text-secondary-foreground py-8 px-4 text-center">
                 <p>{t('footer.copyright')}</p>
             </footer>
-        </div>
-    )
-}
-
-function FeatureCard({icon, title, description}: { icon: React.ReactNode, title: string, description: string }) {
-    return (
-        <div className="p-6 text-center">
-            <div className="flex justify-center mb-4">{icon}</div>
-            <h4 className="text-xl font-semibold mb-2">{title}</h4>
-            <p className="text-gray-600">{description}</p>
         </div>
     )
 }
@@ -245,26 +204,83 @@ function CreatorFeature({icon, title, description}: { icon: React.ReactNode, tit
     )
 }
 
-function RoadmapItem({icon, title, description, timeline}: {
-    icon: React.ReactNode,
-    title: string,
-    description: string,
-    timeline: string
-}) {
+function DownloadSection({ t }: { t: any }) {
+    const [showTooltip, setShowTooltip] = useState(false);
+    let tooltipTimer: NodeJS.Timeout | null = null;
+
+    const handleMouseEnter = () => {
+        if (tooltipTimer) clearTimeout(tooltipTimer);
+        setShowTooltip(true);
+    };
+
+    const handleMouseLeave = () => {
+        if (tooltipTimer) clearTimeout(tooltipTimer);
+        tooltipTimer = setTimeout(() => {
+            setShowTooltip(false);
+        }, 5 * 1000);
+    };
+
     return (
-        <div className="flex items-start space-x-4">
-            <div className="flex-shrink-0">{icon}</div>
-            <div className="flex-grow">
-                <h4 className="text-xl font-semibold mb-2">{title}</h4>
-                <p className="text-gray-600 mb-2">{description}</p>
-                <p className="text-sm font-semibold text-purple-600">{timeline}</p>
+        <section id="download-section" className="py-16 px-4 bg-white text-center">
+            <h3 className="text-3xl font-bold mb-4">{t('download.title')}</h3>
+            <p className="mb-8 text-gray-600">{t('download.subtitle')}</p>
+            <div className="flex flex-col items-center">
+                <div className="flex justify-center gap-6 px-4 mb-4">
+                    <div
+                        className="bg-[#0066CC] text-white hover:bg-[#0055AA] w-44 h-16 rounded-xl cursor-pointer transition-all duration-200"
+                        onClick={() => window.open('https://testflight.apple.com/your-testflight-link', '_blank')}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                    >
+                        <div className="flex items-center justify-center w-full h-full px-4 space-x-2">
+                            <div className={'flex w-1/4 h-full items-center justify-center'}>
+                                <FaApple size={28}/>
+                            </div>
+                            <div className="flex-1 flex flex-col items-start justify-center leading-tight">
+                                <span className="text-xs">Now available</span>
+                                <span className="text-lg font-semibold">TestFlight</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        className="bg-black text-white w-44 h-16 rounded-xl cursor-not-allowed opacity-70 transition-all duration-200"
+                    >
+                        <div className="flex items-center justify-center w-full h-full px-4 space-x-2">
+                            <div className={'flex w-1/4 h-full items-center justify-center'}>
+                                <FaApple size={28}/>
+                            </div>
+                            <div className="flex-1 flex flex-col items-start justify-center leading-tight">
+                                <span className="text-xs">Coming soon</span>
+                                <span className="text-lg font-semibold">App Store</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        className="bg-black text-white w-44 h-16 rounded-xl cursor-not-allowed opacity-70 transition-all duration-200"
+                    >
+                        <div className="flex items-center justify-center w-full h-full px-4 space-x-2">
+                            <div className={'flex w-1/4 h-full items-center justify-center'}>
+                                <FaAndroid size={28}/>
+                            </div>
+                            <div className="flex-1 flex flex-col items-start justify-center leading-tight">
+                                <span className="text-xs">Coming soon</span>
+                                <span className="text-lg font-semibold">Play Store</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    className={`${showTooltip ? 'opacity-100 max-h-20' : 'opacity-0 max-h-0'} overflow-hidden bg-gray-900 text-white text-sm rounded-md py-2 px-4 transition-all duration-200 ease-in-out`}
+                >
+                    {t('download.testflight.tooltip')}
+                </div>
             </div>
-        </div>
+        </section>
     )
 }
 
 function Carousel({images, currentIndex}: { images: string[], currentIndex: number }) {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
     const [isHovering, setIsHovering] = useState(false);
 
     const handleMouseMove = (e: React.MouseEvent) => {
