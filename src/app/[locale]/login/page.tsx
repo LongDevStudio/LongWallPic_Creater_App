@@ -51,7 +51,7 @@ export default function LoginPage() {
                                 <input
                                     type="text"
                                     placeholder="Enter Username or Email"
-                                    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-hidden focus:ring-1 focus:ring-blue-600"
                                     value={login}
                                     onChange={(e) => setLogin(e.target.value)}
                                     required
@@ -62,7 +62,7 @@ export default function LoginPage() {
                                 <input
                                     type="password"
                                     placeholder="Enter Password"
-                                    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-hidden focus:ring-1 focus:ring-blue-600"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required

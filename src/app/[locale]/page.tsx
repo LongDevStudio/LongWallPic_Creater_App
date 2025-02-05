@@ -43,7 +43,7 @@ export default function Home() {
     return (
         <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex-grow">
+            <main className="grow">
                 <FloatingFeedbackButton />
                 {/* for test theme */}
                 {/*<div className="bg-background text-foreground">*/}
@@ -60,7 +60,7 @@ export default function Home() {
 
                 {/* Hero Section */}
                 <section
-                    className="relative h-[80vh] bg-gradient-to-b from-primary to-secondary flex items-center justify-center px-4 text-center">
+                    className="relative h-[80vh] bg-linear-to-b from-primary to-secondary flex items-center justify-center px-4 text-center">
                     <div className="z-10">
                         <h2 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-4">{t('hero.title')}</h2>
                         <TypewriterText text={t('hero.subtitle')} className="text-xl text-primary-foreground"/>
@@ -132,7 +132,7 @@ export default function Home() {
 
 
                 {/* Creator Invitation Section */}
-                <section className="py-16 px-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+                <section className="py-16 px-4 bg-linear-to-r from-purple-600 to-blue-600 text-white">
                     <div className="max-w-5xl mx-auto">
                         <h3 className="text-3xl font-bold text-center mb-12">{t('creator.title')}</h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -293,7 +293,7 @@ function Carousel({images, currentIndex}: { images: string[], currentIndex: numb
             ))}
             {/* 毛玻璃效果遮罩层 */}
             <div
-                className="absolute inset-0 backdrop-blur-sm bg-black/30"
+                className="absolute inset-0 backdrop-blur-xs bg-black/30"
                 style={{
                     backdropFilter: 'blur(8px)',
                     WebkitBackdropFilter: 'blur(8px)',

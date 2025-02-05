@@ -19,7 +19,7 @@ export function Header() {
   }
 
   return (
-      <header className="w-full p-4 bg-gradient-to-r from-purple-600 to-blue-600">
+      <header className="w-full p-4 bg-linear-to-r from-purple-600 to-blue-600">
         <nav className="flex items-center justify-between max-w-7xl mx-auto">
           <Link href="/" className="text-2xl font-bold text-white">
             WallpaperWizard

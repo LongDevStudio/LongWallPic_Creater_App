@@ -51,7 +51,7 @@ export default function UploadPage() {
                             type="file"
                             accept="image/*"
                             onChange={handleFileChange}
-                            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-hidden focus:ring-1 focus:ring-blue-600"
                             required
                         />
                         {preview && (

@@ -270,13 +270,13 @@ export function RoadmapCarousel() {
                         return (
                             <div
                                 key={index}
-                                className={`flex-shrink-0 ${isEven ? 'mt-0' : 'mt-24'}`}
+                                className={`shrink-0 ${isEven ? 'mt-0' : 'mt-24'}`}
                                 style={{transform: `translateX(${index * 20}px)`}}
                             >
                                 <Card className="w-[240px] p-6 bg-white shadow-lg">
                                     <div className="flex flex-col gap-4">
                                         <div className="flex items-start justify-between">
-                                            <div className="flex-shrink-0">{item.icon}</div>
+                                            <div className="shrink-0">{item.icon}</div>
                                             <span
                                                 className="text-sm font-medium text-purple-600">Milestone {item.milestone}</span>
                                         </div>
