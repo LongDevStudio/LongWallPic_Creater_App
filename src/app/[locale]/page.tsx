@@ -2,35 +2,13 @@
 
 import Image from "next/image"
 import {Button} from "@/components/ui/button"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
-    ArrowDown,
-    Smartphone,
-    ImageIcon,
-    Zap,
-    PenTool,
-    DollarSign,
-    Users,
-    Tablet,
-    Monitor,
-    Tv,
-    Glasses,
-    Moon,
-    Sun,
-    Wine,
-    LeafyGreen
-} from 'lucide-react'
+import {ArrowDown, DollarSign, PenTool, Users} from 'lucide-react'
 import {AppShowcase} from '@/components/AppShowcase'
 import {Header} from '@/components/Header'
 import {useTranslations} from 'next-intl'
 import {useEffect, useState} from 'react';
 import {FaAndroid, FaApple} from 'react-icons/fa6'
-import { useTheme } from "next-themes"
+import {useTheme} from "next-themes"
 import {TypewriterText} from '@/components/TypewriterText'
 import {RoadmapCarousel} from "@/components/RoadmapCarousel";
 import {FloatingFeedbackButton} from '@/components/FloatingFeedbackButton'
