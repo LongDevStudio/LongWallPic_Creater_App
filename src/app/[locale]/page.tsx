@@ -13,6 +13,8 @@ import {TypewriterText} from '@/components/TypewriterText'
 import {RoadmapCarousel} from "@/components/RoadmapCarousel";
 import {FloatingFeedbackButton} from '@/components/FloatingFeedbackButton'
 
+type TranslationFunction = ReturnType<typeof useTranslations>;
+
 export default function Home() {
     const t = useTranslations()
     const [backgroundImages, setBackgroundImages] = useState<string[]>([]);
@@ -182,7 +184,7 @@ function CreatorFeature({icon, title, description}: { icon: React.ReactNode, tit
     )
 }
 
-function DownloadSection({ t }: { t: any }) {
+function DownloadSection({ t }: { t: TranslationFunction }) {
     const [showTooltip, setShowTooltip] = useState(false);
     let tooltipTimer: NodeJS.Timeout | null = null;
 
