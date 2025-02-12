@@ -209,7 +209,8 @@
     "submit": "Submit",
     "submitting": "Submitting...",
     "submitSuccess": "Thank you for your feedback!",
-    "submitFailed": "Failed to submit feedback"
+    "submitFailed": "Failed to submit feedback",
+    "back": "Go Back"
   },
   "footer": {
     "copyright": "© 2024 WallpaperWizard. All rights reserved."
