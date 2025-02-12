@@ -102,29 +102,29 @@ export default function Home() {
                 {/*</section>*/}
 
                 {/* App Showcase Section */}
-                <section className='bg-gray-50 px-4 py-16'>
-                    <h3 className='mb-12 text-center text-3xl font-bold'>
+                <section className='bg-slate-50 px-4 py-16'>
+                    <h3 className='mb-12 text-center text-3xl font-bold text-slate-950'>
                         {t('showcase.title')}
                     </h3>
                     <div className='mx-auto flex max-w-6xl flex-col items-center justify-center gap-8 md:flex-row'>
                         <AppShowcase />
                         <div className='space-y-4 md:w-1/2'>
-                            <h4 className='text-2xl font-semibold'>
+                            <h4 className='text-2xl font-semibold text-slate-950'>
                                 {t('showcase.interface.title')}
                             </h4>
-                            <p className='text-gray-600'>
+                            <p className='text-slate-950'>
                                 {t('showcase.interface.description')}
                             </p>
-                            <h4 className='text-2xl font-semibold'>
+                            <h4 className='text-2xl font-semibold text-slate-950'>
                                 {t('showcase.oneTab.title')}
                             </h4>
-                            <p className='text-gray-600'>
+                            <p className='text-slate-950'>
                                 {t('showcase.oneTab.description')}
                             </p>
-                            <h4 className='text-2xl font-semibold'>
+                            <h4 className='text-2xl font-semibold text-slate-950'>
                                 {t('showcase.recommendations.title')}
                             </h4>
-                            <p className='text-gray-600'>
+                            <p className='text-slate-950'>
                                 {t('showcase.recommendations.description')}
                             </p>
                         </div>
@@ -132,13 +132,13 @@ export default function Home() {
                 </section>
 
                 {/* Roadmap Section */}
-                <section className='bg-gray-100 px-4 py-16'>
+                <section className='bg-slate-50 px-4 py-16'>
                     <div className='mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row lg:gap-16'>
                         <div className='flex-1'>
                             <RoadmapCarousel />
                         </div>
-                        <div className='flex flex-col justify-start lg:sticky lg:top-24 lg:self-start'>
-                            <h3 className='mb-4 text-3xl font-bold [text-orientation:upright] [writing-mode:vertical-rl]'>
+                        <div className='flex flex-col justify-start lg:sticky lg:top-24 lg:self-start '>
+                            <h3 className='mb-4 text-3xl font-bold text-slate-950 [text-orientation:upright] [writing-mode:vertical-rl]'>
                                 {t('roadmap.title')}
                             </h3>
                         </div>
@@ -235,8 +235,8 @@ function DownloadSection({ t }: { t: TranslationFunction }) {
             id='download-section'
             className='bg-white px-4 py-16 text-center'
         >
-            <h3 className='mb-4 text-3xl font-bold'>{t('download.title')}</h3>
-            <p className='mb-8 text-gray-600'>{t('download.subtitle')}</p>
+            <h3 className='mb-4 text-3xl font-bold text-slate-950'>{t('download.title')}</h3>
+            <p className='mb-8 text-slate-950'>{t('download.subtitle')}</p>
             <div className='flex flex-col items-center'>
                 <div className='mb-4 flex justify-center gap-6 px-4'>
                     <div

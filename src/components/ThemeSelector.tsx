@@ -1,7 +1,7 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { useTranslations } from "next-intl"
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { themes } from '@/config/themes'
 import { useAuth } from '@/contexts/AuthContext'
@@ -10,18 +10,22 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Button } from "@/components/ui/button"
+} from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
 
-import * as React from "react"
-import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { type ThemeProviderProps } from "next-themes"
+import * as React from 'react'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import { type ThemeProviderProps } from 'next-themes'
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }
 
-export function ThemeSelector() {
+interface ThemeSelectorProps {
+    radius?: 'none' | 'sm' | 'md' | 'lg' | 'full'
+}
+
+export function ThemeSelector({ radius }: ThemeSelectorProps) {
     const t = useTranslations()
     const { setTheme, theme } = useTheme()
     const [mounted, setMounted] = useState(false)
@@ -40,34 +44,35 @@ export function ThemeSelector() {
     }
 
     const availableThemes = Object.entries(themes).filter(([_, config]) => {
-        if (!config.visible) return false;
-        if (config.requiresAuth && !isLoggedIn) return false;
-        return true;
-    });
+        if (!config.visible) return false
+        return !(config.requiresAuth && !isLoggedIn)
+    })
 
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon">
+                <Button size='icon' radius={radius}>
                     {React.createElement(getThemeIcon(theme ?? 'light'), {
-                        className: "h-4 w-4"
+                        className: 'h-4 w-4',
                     })}
-                    <span className="sr-only">Toggle theme</span>
+                    <span className='sr-only'>Toggle theme</span>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align='end'>
                 {availableThemes.map(([themeKey, config]) => (
                     <DropdownMenuItem
                         key={themeKey}
                         onClick={() => setTheme(themeKey)}
-                        className={`${theme === themeKey ? "font-semibold" : ""}`}
-                        data-state={theme === themeKey ? "selected" : "default"}
+                        className={`${theme === themeKey ? 'font-semibold' : ''}`}
+                        data-state={theme === themeKey ? 'selected' : 'default'}
                     >
                         {React.createElement(config.icon, {
-                            className: `mr-2 h-4 w-4 ${theme === themeKey ? "stroke-2" : "stroke-1"}`
+                            className: `mr-2 h-4 w-4 ${theme === themeKey ? 'stroke-2' : 'stroke-1'}`,
                         })}
                         <span>{t(config.translationKey)}</span>
-                        {theme === themeKey && <span className="ml-auto">✓</span>}
+                        {theme === themeKey && (
+                            <span className='ml-auto'>✓</span>
+                        )}
                     </DropdownMenuItem>
                 ))}
             </DropdownMenuContent>
