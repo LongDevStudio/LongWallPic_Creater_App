@@ -137,7 +137,7 @@ export default function Home() {
                         <div className='flex-1'>
                             <RoadmapCarousel />
                         </div>
-                        <div className='flex flex-col justify-start lg:sticky lg:top-24 lg:self-start '>
+                        <div className='flex flex-col justify-start lg:sticky lg:top-24 lg:self-start'>
                             <h3 className='mb-4 text-3xl font-bold text-slate-950 [text-orientation:upright] [writing-mode:vertical-rl]'>
                                 {t('roadmap.title')}
                             </h3>
@@ -146,9 +146,9 @@ export default function Home() {
                 </section>
 
                 {/* Creator Invitation Section */}
-                <section className='bg-linear-to-r from-purple-600 to-blue-600 px-4 py-16 text-white'>
+                <section className='bg-linear-to-r from-amber-50 to-cyan-50 px-4 py-16 text-white dark:from-indigo-900 dark:to-fuchsia-900'>
                     <div className='mx-auto max-w-5xl'>
-                        <h3 className='mb-12 text-center text-3xl font-bold'>
+                        <h3 className='mb-12 text-center text-3xl font-bold text-slate-950 dark:text-slate-50'>
                             {t('creator.title')}
                         </h3>
                         <div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
@@ -177,7 +177,8 @@ export default function Home() {
                         <div className='mt-12 text-center'>
                             <Button
                                 size='lg'
-                                className='bg-white text-purple-600 hover:bg-gray-100'
+                                radius={'lg'}
+                                className='bg-slate-950 text-slate-50 dark:bg-slate-50 dark:text-slate-950'
                             >
                                 {t('creator.button')}
                             </Button>
@@ -189,7 +190,7 @@ export default function Home() {
                 <DownloadSection t={t} />
             </main>
 
-            <footer className='bg-secondary text-secondary-foreground px-4 py-8 text-center'>
+            <footer className='bg-slate-50 px-4 py-8 text-center text-slate-950'>
                 <p>{t('footer.copyright')}</p>
             </footer>
         </div>
@@ -207,9 +208,13 @@ function CreatorFeature({
 }) {
     return (
         <div className='text-center'>
-            <div className='mb-4 flex justify-center'>{icon}</div>
-            <h4 className='mb-2 text-xl font-semibold'>{title}</h4>
-            <p>{description}</p>
+            <div className='mb-4 flex justify-center text-slate-950 dark:text-slate-50'>
+                {icon}
+            </div>
+            <h4 className='mb-2 text-xl font-semibold text-slate-950 dark:text-slate-50'>
+                {title}
+            </h4>
+            <p className={'text-slate-950 dark:text-slate-50'}>{description}</p>
         </div>
     )
 }
@@ -235,7 +240,9 @@ function DownloadSection({ t }: { t: TranslationFunction }) {
             id='download-section'
             className='bg-white px-4 py-16 text-center'
         >
-            <h3 className='mb-4 text-3xl font-bold text-slate-950'>{t('download.title')}</h3>
+            <h3 className='mb-4 text-3xl font-bold text-slate-950'>
+                {t('download.title')}
+            </h3>
             <p className='mb-8 text-slate-950'>{t('download.subtitle')}</p>
             <div className='flex flex-col items-center'>
                 <div className='mb-4 flex justify-center gap-6 px-4'>
@@ -253,7 +260,7 @@ function DownloadSection({ t }: { t: TranslationFunction }) {
                         <div className='flex h-full w-full items-center justify-center space-x-2 px-4'>
                             <div
                                 className={
-                                    'flex h-full w-1/4 items-center justify-center'
+                                    'flex h-full w-1/4 items-center justify-center rounded-lg'
                                 }
                             >
                                 <FaApple size={28} />
@@ -270,7 +277,7 @@ function DownloadSection({ t }: { t: TranslationFunction }) {
                         <div className='flex h-full w-full items-center justify-center space-x-2 px-4'>
                             <div
                                 className={
-                                    'flex h-full w-1/4 items-center justify-center'
+                                    'flex h-full w-1/4 items-center justify-center rounded-lg'
                                 }
                             >
                                 <FaApple size={28} />
@@ -287,7 +294,7 @@ function DownloadSection({ t }: { t: TranslationFunction }) {
                         <div className='flex h-full w-full items-center justify-center space-x-2 px-4'>
                             <div
                                 className={
-                                    'flex h-full w-1/4 items-center justify-center'
+                                    'flex h-full w-1/4 items-center justify-center rounded-lg'
                                 }
                             >
                                 <FaAndroid size={28} />
