@@ -1,84 +1,81 @@
 'use client'
 
-import Image from "next/image"
-import {Button} from "@/components/ui/button"
-import {ArrowDown, DollarSign, PenTool, Users} from 'lucide-react'
-import {AppShowcase} from '@/components/AppShowcase'
-import {Header} from '@/components/Header'
-import {useTranslations} from 'next-intl'
-import {useEffect, useState} from 'react';
-import {FaAndroid, FaApple} from 'react-icons/fa6'
-import {useTheme} from "next-themes"
-import {TypewriterText} from '@/components/TypewriterText'
-import {RoadmapCarousel} from "@/components/RoadmapCarousel";
-import {FloatingFeedbackButton} from '@/components/FloatingFeedbackButton'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
+import { ArrowDown, DollarSign, PenTool, Users } from 'lucide-react'
+import { AppShowcase } from '@/components/AppShowcase'
+import { Header } from '@/components/Header'
+import { useTranslations } from 'next-intl'
+import React, { useEffect, useState } from 'react'
+import { FaAndroid, FaApple } from 'react-icons/fa6'
+import { TypewriterText } from '@/components/TypewriterText'
+import { RoadmapCarousel } from '@/components/RoadmapCarousel'
+import { FloatingFeedbackButton } from '@/components/FloatingFeedbackButton'
 
-type TranslationFunction = ReturnType<typeof useTranslations>;
+type TranslationFunction = ReturnType<typeof useTranslations>
 
 export default function Home() {
     const t = useTranslations()
-    const [backgroundImages, setBackgroundImages] = useState<string[]>([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const { setTheme, theme } = useTheme()
+    const [backgroundImages, setBackgroundImages] = useState<string[]>([])
+    const [currentIndex, setCurrentIndex] = useState(0)
 
     useEffect(() => {
-        const month = new Date().getMonth();
+        const month = new Date().getMonth()
         const seasonImages = [
-            '/images/spring.jpg', // Spring
-            '/images/summer.jpg', // Summer
-            '/images/fall.jpg',   // Fall
-            '/images/winter.jpg'  // Winter
-        ];
-        const currentSeasonIndex = Math.floor(month / 3); // Determine the current season
-        const images = [seasonImages[currentSeasonIndex], ...seasonImages]; // Set the first image to the current season
-        setBackgroundImages(images);
-    }, []);
+            '/images/spring.jpg',
+            '/images/summer.jpg',
+            '/images/fall.jpg',
+            '/images/winter.jpg',
+        ]
+        const currentSeasonIndex = Math.floor(month / 3)
+        const images = [seasonImages[currentSeasonIndex], ...seasonImages]
+        setBackgroundImages(images)
+    }, [])
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
-        }, 3000);
+            setCurrentIndex(
+                prevIndex => (prevIndex + 1) % backgroundImages.length
+            )
+        }, 3000)
 
-        return () => clearInterval(interval);
-    }, [backgroundImages]);
+        return () => clearInterval(interval)
+    }, [backgroundImages])
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className='flex min-h-screen flex-col'>
             <Header />
-            <main className="grow">
+            <main className='grow'>
                 <FloatingFeedbackButton />
-                {/* for test theme */}
-                {/*<div className="bg-background text-foreground">*/}
-                {/*    <div className="bg-card text-card-foreground">*/}
-                {/*        卡片内容*/}
-                {/*    </div>*/}
-                {/*    <button className="bg-primary text-primary-foreground">*/}
-                {/*        主要按钮*/}
-                {/*    </button>*/}
-                {/*    <button className="bg-secondary text-secondary-foreground">*/}
-                {/*        次要按钮*/}
-                {/*    </button>*/}
-                {/*</div>*/}
 
                 {/* Hero Section */}
-                <section
-                    className="relative h-[80vh] bg-linear-to-b from-primary to-secondary flex items-center justify-center px-4 text-center">
-                    <div className="z-10">
-                        <h2 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-4">{t('hero.title')}</h2>
-                        <TypewriterText text={t('hero.subtitle')} className="text-xl text-primary-foreground"/>
+                <section className='relative flex h-[85vh] items-center justify-center bg-linear-to-b px-4 text-center'>
+                    <div className='z-10'>
+                        <h2 className='mb-4 text-4xl font-bold text-slate-950 md:text-6xl dark:text-slate-50'>
+                            {t('hero.title')}
+                        </h2>
+                        <TypewriterText
+                            text={t('hero.subtitle')}
+                            className='text-xl text-slate-950 dark:text-slate-50'
+                        />
                         <Button
-                            size="lg"
-                            className="bg-secondary hover:bg-secondary/90 mt-8
-                            text-black
-                            dark:text-white"
-                            onClick={() => document.getElementById('download-section')?.scrollIntoView({behavior: 'smooth'})}
+                            size='lg'
+                            className='mt-8 bg-slate-950 text-slate-50 dark:bg-slate-50 dark:text-slate-950'
+                            onClick={() =>
+                                document
+                                    .getElementById('download-section')
+                                    ?.scrollIntoView({ behavior: 'smooth' })
+                            }
                         >
                             {t('hero.downloadButton')}
-                            <ArrowDown className="ml-2"/>
+                            <ArrowDown className='ml-2' />
                         </Button>
                     </div>
-                    <div className="absolute inset-0 overflow-hidden">
-                        <Carousel images={backgroundImages} currentIndex={currentIndex}/>
+                    <div className='absolute inset-0 overflow-hidden'>
+                        <Carousel
+                            images={backgroundImages}
+                            currentIndex={currentIndex}
+                        />
                     </div>
                 </section>
 
@@ -105,57 +102,83 @@ export default function Home() {
                 {/*</section>*/}
 
                 {/* App Showcase Section */}
-                <section className="py-16 px-4 bg-gray-50">
-                    <h3 className="text-3xl font-bold text-center mb-12">{t('showcase.title')}</h3>
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-6xl mx-auto">
-                        <AppShowcase/>
-                        <div className="md:w-1/2 space-y-4">
-                            <h4 className="text-2xl font-semibold">{t('showcase.interface.title')}</h4>
-                            <p className="text-gray-600">{t('showcase.interface.description')}</p>
-                            <h4 className="text-2xl font-semibold">{t('showcase.oneTab.title')}</h4>
-                            <p className="text-gray-600">{t('showcase.oneTab.description')}</p>
-                            <h4 className="text-2xl font-semibold">{t('showcase.recommendations.title')}</h4>
-                            <p className="text-gray-600">{t('showcase.recommendations.description')}</p>
+                <section className='bg-gray-50 px-4 py-16'>
+                    <h3 className='mb-12 text-center text-3xl font-bold'>
+                        {t('showcase.title')}
+                    </h3>
+                    <div className='mx-auto flex max-w-6xl flex-col items-center justify-center gap-8 md:flex-row'>
+                        <AppShowcase />
+                        <div className='space-y-4 md:w-1/2'>
+                            <h4 className='text-2xl font-semibold'>
+                                {t('showcase.interface.title')}
+                            </h4>
+                            <p className='text-gray-600'>
+                                {t('showcase.interface.description')}
+                            </p>
+                            <h4 className='text-2xl font-semibold'>
+                                {t('showcase.oneTab.title')}
+                            </h4>
+                            <p className='text-gray-600'>
+                                {t('showcase.oneTab.description')}
+                            </p>
+                            <h4 className='text-2xl font-semibold'>
+                                {t('showcase.recommendations.title')}
+                            </h4>
+                            <p className='text-gray-600'>
+                                {t('showcase.recommendations.description')}
+                            </p>
                         </div>
                     </div>
                 </section>
 
                 {/* Roadmap Section */}
-                <section className="py-16 px-4 bg-gray-100">
-                    <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-16">
-                        <div className="flex-1">
-                            <RoadmapCarousel/>
+                <section className='bg-gray-100 px-4 py-16'>
+                    <div className='mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row lg:gap-16'>
+                        <div className='flex-1'>
+                            <RoadmapCarousel />
                         </div>
-                        <div className="flex flex-col justify-start lg:sticky lg:top-24 lg:self-start">
-                            <h3 className="text-3xl font-bold mb-4 [writing-mode:vertical-rl] [text-orientation:upright]">{t('roadmap.title')}</h3>
+                        <div className='flex flex-col justify-start lg:sticky lg:top-24 lg:self-start'>
+                            <h3 className='mb-4 text-3xl font-bold [text-orientation:upright] [writing-mode:vertical-rl]'>
+                                {t('roadmap.title')}
+                            </h3>
                         </div>
                     </div>
                 </section>
 
-
                 {/* Creator Invitation Section */}
-                <section className="py-16 px-4 bg-linear-to-r from-purple-600 to-blue-600 text-white">
-                    <div className="max-w-5xl mx-auto">
-                        <h3 className="text-3xl font-bold text-center mb-12">{t('creator.title')}</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <section className='bg-linear-to-r from-purple-600 to-blue-600 px-4 py-16 text-white'>
+                    <div className='mx-auto max-w-5xl'>
+                        <h3 className='mb-12 text-center text-3xl font-bold'>
+                            {t('creator.title')}
+                        </h3>
+                        <div className='grid grid-cols-1 gap-8 md:grid-cols-3'>
                             <CreatorFeature
-                                icon={<PenTool className="w-12 h-12"/>}
+                                icon={<PenTool className='h-12 w-12' />}
                                 title={t('creator.features.showcase.title')}
-                                description={t('creator.features.showcase.description')}
+                                description={t(
+                                    'creator.features.showcase.description'
+                                )}
                             />
                             <CreatorFeature
-                                icon={<DollarSign className="w-12 h-12"/>}
+                                icon={<DollarSign className='h-12 w-12' />}
                                 title={t('creator.features.earn.title')}
-                                description={t('creator.features.earn.description')}
+                                description={t(
+                                    'creator.features.earn.description'
+                                )}
                             />
                             <CreatorFeature
-                                icon={<Users className="w-12 h-12"/>}
+                                icon={<Users className='h-12 w-12' />}
                                 title={t('creator.features.grow.title')}
-                                description={t('creator.features.grow.description')}
+                                description={t(
+                                    'creator.features.grow.description'
+                                )}
                             />
                         </div>
-                        <div className="text-center mt-12">
-                            <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
+                        <div className='mt-12 text-center'>
+                            <Button
+                                size='lg'
+                                className='bg-white text-purple-600 hover:bg-gray-100'
+                            >
                                 {t('creator.button')}
                             </Button>
                         </div>
@@ -164,93 +187,122 @@ export default function Home() {
 
                 {/* Download Section */}
                 <DownloadSection t={t} />
-
             </main>
 
-            <footer className="bg-secondary text-secondary-foreground py-8 px-4 text-center">
+            <footer className='bg-secondary text-secondary-foreground px-4 py-8 text-center'>
                 <p>{t('footer.copyright')}</p>
             </footer>
         </div>
     )
 }
 
-function CreatorFeature({icon, title, description}: { icon: React.ReactNode, title: string, description: string }) {
+function CreatorFeature({
+    icon,
+    title,
+    description,
+}: {
+    icon: React.ReactNode
+    title: string
+    description: string
+}) {
     return (
-        <div className="text-center">
-            <div className="flex justify-center mb-4">{icon}</div>
-            <h4 className="text-xl font-semibold mb-2">{title}</h4>
+        <div className='text-center'>
+            <div className='mb-4 flex justify-center'>{icon}</div>
+            <h4 className='mb-2 text-xl font-semibold'>{title}</h4>
             <p>{description}</p>
         </div>
     )
 }
 
 function DownloadSection({ t }: { t: TranslationFunction }) {
-    const [showTooltip, setShowTooltip] = useState(false);
-    let tooltipTimer: NodeJS.Timeout | null = null;
+    const [showTooltip, setShowTooltip] = useState(false)
+    let tooltipTimer: NodeJS.Timeout | null = null
 
     const handleMouseEnter = () => {
-        if (tooltipTimer) clearTimeout(tooltipTimer);
-        setShowTooltip(true);
-    };
+        if (tooltipTimer) clearTimeout(tooltipTimer)
+        setShowTooltip(true)
+    }
 
     const handleMouseLeave = () => {
-        if (tooltipTimer) clearTimeout(tooltipTimer);
+        if (tooltipTimer) clearTimeout(tooltipTimer)
         tooltipTimer = setTimeout(() => {
-            setShowTooltip(false);
-        }, 5 * 1000);
-    };
+            setShowTooltip(false)
+        }, 5 * 1000)
+    }
 
     return (
-        <section id="download-section" className="py-16 px-4 bg-white text-center">
-            <h3 className="text-3xl font-bold mb-4">{t('download.title')}</h3>
-            <p className="mb-8 text-gray-600">{t('download.subtitle')}</p>
-            <div className="flex flex-col items-center">
-                <div className="flex justify-center gap-6 px-4 mb-4">
+        <section
+            id='download-section'
+            className='bg-white px-4 py-16 text-center'
+        >
+            <h3 className='mb-4 text-3xl font-bold'>{t('download.title')}</h3>
+            <p className='mb-8 text-gray-600'>{t('download.subtitle')}</p>
+            <div className='flex flex-col items-center'>
+                <div className='mb-4 flex justify-center gap-6 px-4'>
                     <div
-                        className="bg-[#0066CC] text-white hover:bg-[#0055AA] w-44 h-16 rounded-xl cursor-pointer transition-all duration-200"
-                        onClick={() => window.open('https://testflight.apple.com/your-testflight-link', '_blank')}
+                        className='h-16 w-44 cursor-pointer rounded-xl bg-[#0066CC] text-white transition-all duration-200 hover:bg-[#0055AA]'
+                        onClick={() =>
+                            window.open(
+                                'https://testflight.apple.com/your-testflight-link',
+                                '_blank'
+                            )
+                        }
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                     >
-                        <div className="flex items-center justify-center w-full h-full px-4 space-x-2">
-                            <div className={'flex w-1/4 h-full items-center justify-center'}>
-                                <FaApple size={28}/>
+                        <div className='flex h-full w-full items-center justify-center space-x-2 px-4'>
+                            <div
+                                className={
+                                    'flex h-full w-1/4 items-center justify-center'
+                                }
+                            >
+                                <FaApple size={28} />
                             </div>
-                            <div className="flex-1 flex flex-col items-start justify-center leading-tight">
-                                <span className="text-xs">Now available</span>
-                                <span className="text-lg font-semibold">TestFlight</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        className="bg-black text-white w-44 h-16 rounded-xl cursor-not-allowed opacity-70 transition-all duration-200"
-                    >
-                        <div className="flex items-center justify-center w-full h-full px-4 space-x-2">
-                            <div className={'flex w-1/4 h-full items-center justify-center'}>
-                                <FaApple size={28}/>
-                            </div>
-                            <div className="flex-1 flex flex-col items-start justify-center leading-tight">
-                                <span className="text-xs">Coming soon</span>
-                                <span className="text-lg font-semibold">App Store</span>
+                            <div className='flex flex-1 flex-col items-start justify-center leading-tight'>
+                                <span className='text-xs'>Now available</span>
+                                <span className='text-lg font-semibold'>
+                                    TestFlight
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <div
-                        className="bg-black text-white w-44 h-16 rounded-xl cursor-not-allowed opacity-70 transition-all duration-200"
-                    >
-                        <div className="flex items-center justify-center w-full h-full px-4 space-x-2">
-                            <div className={'flex w-1/4 h-full items-center justify-center'}>
-                                <FaAndroid size={28}/>
+                    <div className='h-16 w-44 cursor-not-allowed rounded-xl bg-black text-white opacity-70 transition-all duration-200'>
+                        <div className='flex h-full w-full items-center justify-center space-x-2 px-4'>
+                            <div
+                                className={
+                                    'flex h-full w-1/4 items-center justify-center'
+                                }
+                            >
+                                <FaApple size={28} />
                             </div>
-                            <div className="flex-1 flex flex-col items-start justify-center leading-tight">
-                                <span className="text-xs">Coming soon</span>
-                                <span className="text-lg font-semibold">Play Store</span>
+                            <div className='flex flex-1 flex-col items-start justify-center leading-tight'>
+                                <span className='text-xs'>Coming soon</span>
+                                <span className='text-lg font-semibold'>
+                                    App Store
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='h-16 w-44 cursor-not-allowed rounded-xl bg-black text-white opacity-70 transition-all duration-200'>
+                        <div className='flex h-full w-full items-center justify-center space-x-2 px-4'>
+                            <div
+                                className={
+                                    'flex h-full w-1/4 items-center justify-center'
+                                }
+                            >
+                                <FaAndroid size={28} />
+                            </div>
+                            <div className='flex flex-1 flex-col items-start justify-center leading-tight'>
+                                <span className='text-xs'>Coming soon</span>
+                                <span className='text-lg font-semibold'>
+                                    Play Store
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div
-                    className={`${showTooltip ? 'opacity-100 max-h-20' : 'opacity-0 max-h-0'} overflow-hidden bg-gray-900 text-white text-sm rounded-md py-2 px-4 transition-all duration-200 ease-in-out`}
+                    className={`${showTooltip ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden rounded-md bg-gray-900 px-4 py-2 text-sm text-white transition-all duration-200 ease-in-out`}
                 >
                     {t('download.testflight.tooltip')}
                 </div>
@@ -259,21 +311,27 @@ function DownloadSection({ t }: { t: TranslationFunction }) {
     )
 }
 
-function Carousel({images, currentIndex}: { images: string[], currentIndex: number }) {
-    const [mousePosition, setMousePosition] = useState({x: 0, y: 0});
-    const [isHovering, setIsHovering] = useState(false);
+function Carousel({
+    images,
+    currentIndex,
+}: {
+    images: string[]
+    currentIndex: number
+}) {
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+    const [isHovering, setIsHovering] = useState(false)
 
     const handleMouseMove = (e: React.MouseEvent) => {
-        const rect = e.currentTarget.getBoundingClientRect();
+        const rect = e.currentTarget.getBoundingClientRect()
         setMousePosition({
             x: e.clientX - rect.left,
             y: e.clientY - rect.top,
-        });
-    };
+        })
+    }
 
     return (
         <div
-            className="carousel relative w-full h-full"
+            className='carousel relative h-full w-full'
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
@@ -287,22 +345,26 @@ function Carousel({images, currentIndex}: { images: string[], currentIndex: numb
                     quality={75}
                     className={`transition-opacity duration-1000 ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
                     fill
-                    sizes="100vw"
+                    sizes='100vw'
                     style={{
-                        objectFit: "cover"
+                        objectFit: 'cover',
                     }}
                 />
             ))}
             {/* 毛玻璃效果遮罩层 */}
             <div
-                className="absolute inset-0 backdrop-blur-xs bg-black/30"
+                className='absolute inset-0 bg-slate-50/60 blur-md transition-opacity dark:bg-slate-950/60'
                 style={{
                     backdropFilter: 'blur(8px)',
                     WebkitBackdropFilter: 'blur(8px)',
-                    maskImage: isHovering ? `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, transparent 100%, black 100%)` : undefined,
-                    WebkitMaskImage: isHovering ? `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, transparent 100%, black 100%)` : undefined,
+                    maskImage: isHovering
+                        ? `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, transparent 100%, black 100%)`
+                        : undefined,
+                    WebkitMaskImage: isHovering
+                        ? `radial-gradient(circle 250px at ${mousePosition.x}px ${mousePosition.y}px, transparent 100%, black 100%)`
+                        : undefined,
                 }}
             />
         </div>
-    );
+    )
 }
