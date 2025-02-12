@@ -1,70 +1,74 @@
 'use client'
 
 import Link from 'next/link'
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
-import { LanguageSelector } from "./LanguageSelector"
-import { ThemeSelector } from "./ThemeSelector"
-import {useTranslations} from "next-intl";
+import { LanguageSelector } from './LanguageSelector'
+import { ThemeSelector } from './ThemeSelector'
+import { useTranslations } from 'next-intl'
 
 export function Header() {
-  const t = useTranslations()
-  const { isLoggedIn, logout } = useAuth()
-  const router = useRouter()
+    const t = useTranslations()
+    const { isLoggedIn, logout } = useAuth()
+    const router = useRouter()
 
-  const handleLogout = () => {
-    logout()
-    router.push('/')
-  }
+    const handleLogout = () => {
+        logout()
+        router.push('/')
+    }
 
-  return (
-      <header className="w-full p-4 bg-linear-to-r from-purple-600 to-blue-600">
-        <nav className="flex items-center justify-between max-w-7xl mx-auto">
-          <Link href="/" className="text-2xl font-bold text-white">
-            WallpaperWizard
-          </Link>
-
-          <div className="flex items-center gap-4">
-            {isLoggedIn ? (
-                <>
-                  <Button
-                      variant="ghost"
-                      className="text-white hover:text-white hover:bg-white/20"
-                      onClick={() => router.push('/upload')}
-                  >
-                    Upload Work
-                  </Button>
-                  <Button
-                      variant="ghost"
-                      className="text-white hover:text-white hover:bg-white/20"
-                      onClick={() => router.push('/works')}
-                  >
-                    My Works
-                  </Button>
-                  <Button
-                      variant="secondary"
-                      className="bg-white text-purple-600 hover:bg-white/90"
-                      onClick={handleLogout}
-                  >
-                    Logout
-                  </Button>
-                </>
-            ) : (
-                <Button
-                    variant="secondary"
-                    className="bg-white text-purple-600 hover:bg-white/90"
-                    onClick={() => router.push('/login')}
+    return (
+        <header className='w-full bg-linear-to-r from-amber-50 to-cyan-50 p-4 dark:from-indigo-900 dark:to-fuchsia-900'>
+            <nav className='mx-auto flex max-w-7xl items-center justify-between'>
+                <Link
+                    href='/'
+                    className='text-2xl font-bold text-slate-950 dark:text-slate-50'
                 >
-                  Login
-                </Button>
-            )}
-          </div>
-          <div className="absolute flex right-4 items-center gap-4">
-            <LanguageSelector />
-            <ThemeSelector />
-          </div>
-        </nav>
-      </header>
-  )
+                    SA! Wallpaper
+                </Link>
+
+                <div className='flex items-center gap-4'>
+                    {isLoggedIn ? (
+                        <>
+                            <Button
+                                radius={'lg'}
+                                className='bg-slate-950 text-slate-50 dark:bg-slate-50 dark:text-slate-950'
+                                onClick={() => router.push('/upload')}
+                            >
+                                Upload Work
+                            </Button>
+                            <Button
+                                variant='ghost'
+                                radius={'lg'}
+                                className='bg-slate-950 text-slate-50 dark:bg-slate-50 dark:text-slate-950'
+                                onClick={() => router.push('/works')}
+                            >
+                                My Works
+                            </Button>
+                            <Button
+                                radius={'lg'}
+                                className='bg-slate-950 text-slate-50 dark:bg-slate-50 dark:text-slate-950'
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </Button>
+                        </>
+                    ) : (
+                        <Button
+                            radius='lg'
+                            className='bg-slate-950 text-slate-50 dark:bg-slate-50 dark:text-slate-950'
+                            onClick={() => router.push('/login')}
+                        >
+                            Login
+                        </Button>
+                    )}
+                </div>
+                <div className='absolute right-4 flex items-center gap-4'>
+                    <LanguageSelector />
+                    <ThemeSelector radius='full' />
+                </div>
+            </nav>
+        </header>
+    )
 }
