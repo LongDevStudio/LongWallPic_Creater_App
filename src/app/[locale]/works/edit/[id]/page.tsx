@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, use } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { Media } from '@/models/response/MediaListResponse';
 

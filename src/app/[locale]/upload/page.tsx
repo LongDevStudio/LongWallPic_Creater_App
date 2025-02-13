@@ -1,40 +1,46 @@
-"use client"
+'use client'
 
-import {ChangeEvent, useEffect, useState} from 'react';
-import {type PutBlobResult} from '@vercel/blob';
-import {upload} from "@vercel/blob/client";
-import {Button} from "@/components/ui/button"
-import {Input} from "@/components/ui/input"
-import {Label} from "@/components/ui/label"
-import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card"
-import {Header} from "@/components/Header";
-import {useTranslations} from 'next-intl';
-import {useRouter} from 'next/navigation';
+import { ChangeEvent, useEffect, useState } from 'react'
+import { type PutBlobResult } from '@vercel/blob'
+import { upload } from '@vercel/blob/client'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card'
+import { Header } from '@/components/Header'
+import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 
 export default function UploadPage() {
-    const router = useRouter();
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [preview, setPreview] = useState<string | null>(null);
-    const [title, setTitle] = useState<string>('');
+    const router = useRouter()
+    const [selectedFile, setSelectedFile] = useState<File | null>(null)
+    const [preview, setPreview] = useState<string | null>(null)
+    const [title, setTitle] = useState<string>('')
     const [previewUrl, setPreviewUrl] = useState<string | null>(null)
-    const [content, setContent] = useState<string>('');
-    const [describe, setDescribe] = useState<string>('');
-    const [blob, setBlob] = useState<PutBlobResult | null>(null);
-    const [isUploading, setIsUploading] = useState<boolean>(false);
-    const t = useTranslations('upload');
+    const [content, setContent] = useState<string>('')
+    const [describe, setDescribe] = useState<string>('')
+    const [blob, setBlob] = useState<PutBlobResult | null>(null)
+    const [isUploading, setIsUploading] = useState<boolean>(false)
+    const t = useTranslations('upload')
 
     useEffect(() => {
         // Check for authentication when component mounts
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token')
         if (!token) {
-            router.push('/');
+            router.push('/')
         }
-    }, [router]);
+    }, [router])
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
+        const file = e.target.files?.[0]
         if (file) {
-            setSelectedFile(file);
+            setSelectedFile(file)
 
             const imageUrl = URL.createObjectURL(file)
             setPreviewUrl(imageUrl)
@@ -42,22 +48,22 @@ export default function UploadPage() {
             // Only set title if it's empty
             if (!title.trim()) {
                 // Remove file extension from name
-                const fileName = file.name.replace(/\.[^/.]+$/, "");
-                setTitle(fileName);
+                const fileName = file.name.replace(/\.[^/.]+$/, '')
+                setTitle(fileName)
             }
         }
-    };
+    }
 
     const handleSubmit = async () => {
-        if (!selectedFile) return;
+        if (!selectedFile) return
 
-        setIsUploading(true);
+        setIsUploading(true)
 
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token')
         if (!token) {
-            alert(t('loginFirst'));
-            setIsUploading(false);
-            return;
+            alert(t('loginFirst'))
+            setIsUploading(false)
+            return
         }
 
         try {
@@ -67,18 +73,18 @@ export default function UploadPage() {
                 clientPayload: JSON.stringify({
                     token,
                     title,
-                })
-            });
+                }),
+            })
 
-            setBlob(newBlob);
-            alert(t('uploadSuccess'));
+            setBlob(newBlob)
+            alert(t('uploadSuccess'))
         } catch (err) {
-            console.error('Upload error:', err);
-            alert(t('uploadFailed'));
+            console.error('Upload error:', err)
+            alert(t('uploadFailed'))
         } finally {
-            setIsUploading(false);
+            setIsUploading(false)
         }
-    };
+    }
 
     const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value)
@@ -93,36 +99,38 @@ export default function UploadPage() {
     }, [previewUrl])
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className='flex min-h-screen flex-col'>
             <Header />
-            <div className="flex-1 bg-gray-100 flex items-center justify-center">
-                <Card className="w-[450px]">
+            <div className='flex flex-1 items-center justify-center bg-gray-100'>
+                <Card className='w-[450px]'>
                     <CardHeader>
                         <CardTitle>{t('pageTitle')}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid w-full items-center gap-4">
-                            <Label htmlFor="image-title">{t('imageTitle')}</Label>
+                        <div className='grid w-full items-center gap-4'>
+                            <Label htmlFor='image-title'>
+                                {t('imageTitle')}
+                            </Label>
                             <Input
-                                id="image-title"
-                                type="text"
+                                id='image-title'
+                                type='text'
                                 placeholder={t('imageTitlePlaceholder')}
                                 value={title}
                                 onChange={handleTitleChange}
                             />
-                            <Label htmlFor="picture">{t('selectImage')}</Label>
+                            <Label htmlFor='picture'>{t('selectImage')}</Label>
                             <Input
-                                id="picture"
-                                type="file"
-                                accept="image/*"
+                                id='picture'
+                                type='file'
+                                accept='image/*'
                                 onChange={handleFileChange}
                             />
                             {previewUrl && (
-                                <div className="mt-4">
+                                <div className='mt-4'>
                                     <img
                                         src={previewUrl}
-                                        alt="preview"
-                                        className="max-w-fit max-h-60 rounded-lg"
+                                        alt='preview'
+                                        className='max-h-60 max-w-fit rounded-lg'
                                     />
                                 </div>
                             )}
@@ -132,7 +140,7 @@ export default function UploadPage() {
                         <Button
                             onClick={handleSubmit}
                             disabled={!selectedFile || isUploading}
-                            className="w-full"
+                            className='w-full'
                         >
                             {isUploading ? t('uploading') : t('uploadButton')}
                         </Button>
@@ -140,5 +148,5 @@ export default function UploadPage() {
                 </Card>
             </div>
         </div>
-    );
+    )
 }
