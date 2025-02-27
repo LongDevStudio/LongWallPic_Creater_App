@@ -1,15 +1,38 @@
 import { NextResponse } from "next/server";
 import {Resend} from 'resend';
-import {EmailTemplate, RestPwdEmailTemplate} from '@/components/email-template';
+import {EmailTemplate, RestPwdEmailTemplate, RegisterEmailTemplate} from '@/components/email-template';
 import {Redis} from "@upstash/redis";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const redis = Redis.fromEnv();
+const COOLDOWN_SECONDS = 120; // 2 minutes cooldown
 
 export async function POST(request: Request) {
     try {
         const {email, username, template = 0} = await request.json();
+
+        console.log(`Sending email to ${email} with template ${template} at ${new Date().toISOString()}`);
+
+        // Check cooldown for registration and reset password
+        if (template === 1 || template === 2) {
+            const cooldownKey = `cooldown:${template}:${email}`;
+            const lastSent = await redis.get(cooldownKey);
+
+            if (lastSent) {
+                const elapsed = Math.floor((Date.now() - Number(lastSent)) / 1000);
+                if (elapsed < COOLDOWN_SECONDS) {
+                    const remaining = COOLDOWN_SECONDS - elapsed;
+                    return NextResponse.json(
+                        { error: `Please wait ${remaining} seconds before requesting a new code.`, remaining },
+                        { status: 429 }
+                    );
+                }
+            }
+
+            // Set cooldown timestamp
+            await redis.set(cooldownKey, Date.now().toString());
+        }
 
         const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -21,61 +44,54 @@ export async function POST(request: Request) {
             await redis.set(`reset-password:${email}`, verificationCode, {
                 ex: 10 * 60
             });
+        } else if (template === 2) {
+            await redis.set(`register:${email}`, verificationCode, {
+                ex: 10 * 60
+            });
         }
 
         if (template === 1) {
-            emailTemplate = RestPwdEmailTemplate({
+            emailTemplate = await RestPwdEmailTemplate({
                 firstName: username,
                 verificationCode
             });
             emailSubject = "Reset Password Verification Code";
-            from = 'NO_REPLY <noreply@ems.gluttongk.com'
-
+            from = 'NO_REPLY <noreply@ems.gluttongk.com>';
+        } else if (template === 2) {
+            emailTemplate = await RegisterEmailTemplate({
+                firstName: username,
+                verificationCode
+            });
+            emailSubject = "Registration Verification Code";
+            from = 'NO_REPLY <noreply@ems.gluttongk.com>';
         } else {
             const { data, error } = await resend.emails.send({
-                from: 'DW <onboarding@cms.gluttongk.com>',
-                to: ['davidgluttongk@outlook.com'],
+                from: 'DW <onboarding@ems.gluttongk.com>',
+                to: [email],
                 subject: 'Hello world',
-                react: EmailTemplate({ firstName: 'John' }),
+                react: await EmailTemplate({ firstName: 'John' }),
             });
 
             if (error) {
+                console.log('Error sending email:', error);
                 return Response.json({ error }, { status: 500 });
             }
 
             return Response.json(data);
         }
 
-        const data = await resend.emails.send({
-            from: 'NO_REPLY <noreply@ems.gluttongk.com>',
+        const { data, error } = await resend.emails.send({
+            from,
             to: [email],
             subject: emailSubject,
             react: emailTemplate,
         });
 
-        // vercel function way
-        // const res = await fetch('https://api.resend.com/emails', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-        //     },
-        //     body: JSON.stringify({
-        //         from: 'Acme <onboarding@resend.dev>',
-        //         to: ['delivered@resend.dev'],
-        //         subject: 'hello world',
-        //         html: '<strong>it works!</strong>',
-        //     }),
-        // });
-        //
-        // if (res.ok) {
-        //     const data = await res.json();
-        //     return Response.json(data);
-        // }
+        if (error) {
+            return NextResponse.json({success: false});
+        }
 
-
-        return NextResponse.json({success: true});
-
+        return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Error sending email:', error);
         return NextResponse.json(
