@@ -59,7 +59,8 @@ export default function Home() {
                             className='text-xl text-slate-950 dark:text-slate-50'
                         />
                         <Button
-                            size='lg'
+                            radius={'md'}
+                            size={'lg'}
                             className='mt-8 bg-slate-950 text-slate-50 dark:bg-slate-50 dark:text-slate-950'
                             onClick={() =>
                                 document
