@@ -29,9 +29,6 @@ export async function POST(request: Request) {
                     );
                 }
             }
-
-            // Set cooldown timestamp
-            await redis.set(cooldownKey, Date.now().toString());
         }
 
         const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
